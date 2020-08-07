@@ -7,7 +7,9 @@
                     <img src="{{asset('asset1/images/avatar.png')}}" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p>Trường</p>
+                    @if(Session::has('USERNAME'))
+                    <p>{{Session::get('USERNAME')}}</p>
+                    @endif
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>

@@ -38,10 +38,22 @@ class AccoutController extends Controller
         
         ])->count();
 
-        //dd($accout);
+        
+
+        //dd($taikhoan);
+        //dd($taikhoan[0]->name);
 
         if($accout == 1){
+
+            $taikhoan = DB::table('manager')->where([
+                ['username', '=', $username],
+                ['password', '=', $password],
+                ['type', '=', 'Admin']
+
+            ])->get();
+
             Session::put('login','YES');
+            Session::put('USERNAME', $taikhoan[0]->name);
             return redirect(route('homeadmin'));
         }else{
             $message = "Tài khoản hoặc mật khẩu không đúng !!!";
@@ -52,6 +64,7 @@ class AccoutController extends Controller
 
     public function logout(){
         Session::forget('login');
+        Session::forget('USERNAME');
         return redirect(route('login'));
     }
 }

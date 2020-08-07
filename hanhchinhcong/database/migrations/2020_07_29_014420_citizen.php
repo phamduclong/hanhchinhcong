@@ -16,8 +16,8 @@ class Citizen extends Migration
         //
         Schema::create('Citizen', function ($table) {
             $table->increments('id');
-            $table->string('username');
-            $table->string('password');
+            $table->string('username')->nullable();
+            $table->string('password')->nullable();
             $table->string('name');
             $table->timestamp('date_of_birth')->nullable();
             $table->string('phone');

@@ -15,6 +15,10 @@
     <link rel="stylesheet" href="{{asset('asset1/css/style.css')}}" />
     <script src="{{asset('asset1/js/angular.min.js')}}"></script>
     <script src="{{asset('asset1/js/app.js')}}"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
@@ -42,8 +46,8 @@
 <script src="{{asset('asset1/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('asset1/js/adminlte.min.js')}}"></script>
 <script src="{{asset('asset1/js/dashboard.js')}}"></script>
-<script src="{{asset('asset1/tinymce/tinymce.min.js')}}"></script>
-<script src="{{asset('asset1/tinymce/config.js')}}"></script>
+{{-- <script src="{{asset('asset1/tinymce/tinymce.min.js')}}"></script>
+<script src="{{asset('asset1/tinymce/config.js')}}"></script> --}}
 <script src="{{asset('asset1/js/function.js')}}"></script>
 </body>
 </html>

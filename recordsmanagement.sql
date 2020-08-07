@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th8 04, 2020 lúc 11:29 AM
+-- Thời gian đã tạo: Th8 07, 2020 lúc 10:39 AM
 -- Phiên bản máy phục vụ: 10.4.13-MariaDB
 -- Phiên bản PHP: 7.4.8
 
@@ -29,8 +29,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `citizen` (
   `id` int(10) UNSIGNED NOT NULL,
-  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date_of_birth` timestamp NULL DEFAULT NULL,
   `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -135,8 +135,8 @@ INSERT INTO `linhvuc` (`id`, `name`, `id_malinhvuc`, `updated_at`, `created_at`)
 
 CREATE TABLE `manager` (
   `id` int(10) UNSIGNED NOT NULL,
-  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date_of_birth` timestamp NULL DEFAULT NULL,
   `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -155,7 +155,8 @@ CREATE TABLE `manager` (
 
 INSERT INTO `manager` (`id`, `username`, `password`, `name`, `date_of_birth`, `phone`, `email`, `address`, `type`, `block`, `id_mathutuc`, `updated_at`, `created_at`) VALUES
 (1, 'phamduclong', '123456', 'Phạm Đức Long', NULL, '01234567', 'long@gmail.com', 'Hà Nội', 'NoAdmin', 'No', 1, NULL, NULL),
-(2, 'admin', '123456', 'Admin', NULL, '01234567', 'admin@gmail.com', 'Hà Nội', 'Admin', 'No', 1, NULL, NULL);
+(2, 'admin', '123456', 'Admin', NULL, '01234567', 'admin@gmail.com', 'Hà Nội', 'Admin', 'No', 1, NULL, NULL),
+(5, NULL, NULL, 'Nguyễn Thanh Nam Mập', NULL, '0123456789', 'nam@gmail.com', 'Hà Nội', 'NoAdmin', 'No', 2, '2020-08-07 01:20:57', '2020-08-06 19:49:58');
 
 -- --------------------------------------------------------
 
@@ -174,14 +175,14 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(65, '2014_10_12_000000_create_users_table', 1),
-(66, '2014_10_12_100000_create_password_resets_table', 1),
-(67, '2019_08_19_000000_create_failed_jobs_table', 1),
-(68, '2020_07_29_014112_manager', 1),
-(69, '2020_07_29_014420_citizen', 1),
-(70, '2020_07_29_014515_ho_so', 1),
-(71, '2020_07_29_014545_linh_vuc', 1),
-(72, '2020_07_29_014656_thu_tuc', 1);
+(73, '2014_10_12_000000_create_users_table', 1),
+(74, '2014_10_12_100000_create_password_resets_table', 1),
+(75, '2019_08_19_000000_create_failed_jobs_table', 1),
+(76, '2020_07_29_014112_manager', 1),
+(77, '2020_07_29_014420_citizen', 1),
+(78, '2020_07_29_014515_ho_so', 1),
+(79, '2020_07_29_014545_linh_vuc', 1),
+(80, '2020_07_29_014656_thu_tuc', 1);
 
 -- --------------------------------------------------------
 
@@ -329,13 +330,13 @@ ALTER TABLE `linhvuc`
 -- AUTO_INCREMENT cho bảng `manager`
 --
 ALTER TABLE `manager`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT cho bảng `thutuc`

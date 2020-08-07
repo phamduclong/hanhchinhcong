@@ -9,8 +9,8 @@
             <small>it all starts here</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="#">Examples</a></li>
+            <li><a href="{{route('homeadmin')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+            {{-- <li><a href="#">Examples</a></li> --}}
             <li class="active">
                 <a href="{{route('logout')}}">
                     Logout
@@ -49,12 +49,12 @@
                                         <input class="form-control btn btn-primary" type="submit" value="Tìm kiếm">
                                     </div>
                                 </div>
-                                <div class="col-xs-2">
+                                {{-- <div class="col-xs-2">
                                     <div class="form-group">
                                         <label>&nbsp;</label>
                                         <a class="form-control btn btn-success" data-toggle="modal" href="#modal_add_employee">Thêm mới</a>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <table id="data_table" class="table table-bordered table-striped">
@@ -66,6 +66,7 @@
                                 <th class="bg-primary">Số điện thoại</th>
                                 <th class="bg-primary" width="300px">Địa chỉ</th>
                                 <th class="bg-primary">Hành động</th>
+                                <th class="bg-primary">Block</th>
                             </tr>
                             </thead>
                             @foreach($congdan as $citizen)
@@ -82,6 +83,18 @@
                                         <button class="btn btn-action label label-success">
                                             <i class="fa fa-pencil"></i>
                                         </button>
+                                    </td>
+                                    <td>
+                                        <form action="{{route('post-block-congdan',$citizen->id)}}" method="post" enctype="multipart/form-data">
+                                            <select name="block">                                       
+                                                    <option value="Yes" <?php echo $citizen->block=='Yes'?' selected ':'' ?>>Yes</option>
+                                                    <option value="No" <?php echo $citizen->block=='No'?' selected ':'' ?>>No</option>
+                                            </select>
+                                            {{csrf_field()}}
+                                            <button class="btn btn-action label label-warning" type="submit">
+                                                Save
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             </tbody>

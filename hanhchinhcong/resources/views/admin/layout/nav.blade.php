@@ -22,7 +22,9 @@
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="{{asset('asset1/images/avatar.png')}}" class="user-image" alt="User Image">
-                            <span class="hidden-xs">Trần Trọng Trường</span>
+                            @if(Session::has('USERNAME'))
+                            <span class="hidden-xs">{{Session::get('USERNAME')}}</span>
+                            @endif
                         </a>
                     </li>
 
