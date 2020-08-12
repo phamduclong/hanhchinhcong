@@ -27,6 +27,7 @@ class Citizen extends Migration
             $table->string('file');
             $table->string('block');
             $table->integer('id_hoso');
+            $table->string('status_online')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->timestamp('created_at')->nullable();
         });

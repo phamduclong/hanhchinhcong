@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\EventCountOnline;
 use App\Http\Controllers\Controller;
 use App\Models\Manager;
 use Illuminate\Http\Request;
@@ -52,8 +53,31 @@ class AccoutController extends Controller
 
             ])->get();
 
+            //dd($taikhoan);
+
+            $id = $taikhoan[0]->id;
+            $ACCOUT = Manager::find($id);
+            $ACCOUT->status_online = 'online';
+            $ACCOUT->save();
+
+            $count = DB::table('manager')->where('status_online','=','online')->count();
+
             Session::put('login','YES');
             Session::put('USERNAME', $taikhoan[0]->name);
+
+            // Session::put('TaiKhoan' . $taikhoan[0]->name, $taikhoan[0]->name);
+
+            // dd(Session::all());
+
+            // if(Session::has('TaiKhoan'. $taikhoan[0]->name)){
+            //     Session::put('COUNT');
+            // }else{
+            //     //Session::put('TaiKhoan' . $taikhoan[0]->name , 1);
+            //     Session::put('COUNT',1);
+            // }
+
+            event(new EventCountOnline($count));
+
             return redirect(route('homeadmin'));
         }else{
             $message = "Tài khoản hoặc mật khẩu không đúng !!!";
@@ -63,6 +87,17 @@ class AccoutController extends Controller
     }
 
     public function logout(){
+        
+
+        $taikhoan=DB::table('manager')->where('username','=',Session::get('USERNAME'))->get();
+        $id = $taikhoan[0]->id;
+        $ACCOUT = Manager::find($id);
+        $ACCOUT->status_online = 'offline';
+        $ACCOUT->save();
+
+        $count = DB::table('manager')->where('status_online', '=', 'online')->count();
+        event(new EventCountOnline($count));
+        
         Session::forget('login');
         Session::forget('USERNAME');
         return redirect(route('login'));

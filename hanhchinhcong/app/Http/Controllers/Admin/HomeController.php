@@ -19,7 +19,8 @@ class HomeController extends Controller
         if(Session::has('login')){
             $nhanvien = Manager::paginate(1);
             //$nhanvien = DB::table('manager')->paginate(2);
-            return view('admin.homeadmin',compact('nhanvien'));
+            $count = DB::table('manager')->where('status_online', '=', 'online')->count();
+            return view('admin.homeadmin',compact('nhanvien','count'));
         }else{
             return redirect(route('login'));
         }

@@ -26,7 +26,8 @@ class CitizenSeeder extends Seeder
                 'reason' => "Thích Nộp",
                 'file' => 'Không có',
                 'block' => 'No',
-                'id_hoso' => 1
+                'id_hoso' => 1,
+                'status_online' => 'offline'
             ],
             [
                 'username' => "phamhungmanh",
@@ -39,7 +40,8 @@ class CitizenSeeder extends Seeder
                 'reason' => "Thích Nộp",
                 'file' => 'Không có',
                 'block' => 'No',
-                'id_hoso' => 2
+                'id_hoso' => 2,
+                'status_online' => 'offline'
             ],
             [
                 'username' => "vuthanhthien",
@@ -52,7 +54,8 @@ class CitizenSeeder extends Seeder
                 'reason' => "Thích Nộp",
                 'file' => 'Không có',
                 'block' => 'No',
-                'id_hoso' => 3
+                'id_hoso' => 3,
+                'status_online' => 'offline'
             ],
             [
                 'username' => "nguyenbahiep",
@@ -65,7 +68,8 @@ class CitizenSeeder extends Seeder
                 'reason' => "Thích Nộp",
                 'file' => 'Không có',
                 'block' => 'No',
-                'id_hoso' => 4
+                'id_hoso' => 4,
+                'status_online' => 'offline'
             ],
             [
                 'username' => "nguyenduchieu",
@@ -78,7 +82,8 @@ class CitizenSeeder extends Seeder
                 'reason' => "Thích Nộp",
                 'file' => 'Không có',
                 'block' => 'No',
-                'id_hoso' => 5
+                'id_hoso' => 5,
+                'status_online' => 'offline'
             ]
 
         ]);

@@ -26,6 +26,7 @@ class Manager extends Migration
             $table->string('type');
             $table->string('block');
             $table->integer('id_mathutuc');
+            $table->string('status_online')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->timestamp('created_at')->nullable();
         });

@@ -16,7 +16,7 @@ class LinhVuc extends Migration
         //
         Schema::create('LinhVuc', function ($table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('namelinhvuc');
             $table->integer('id_malinhvuc');
             $table->timestamp('updated_at')->nullable();
             $table->timestamp('created_at')->nullable();

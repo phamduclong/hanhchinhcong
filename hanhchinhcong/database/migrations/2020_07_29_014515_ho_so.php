@@ -16,7 +16,7 @@ class HoSo extends Migration
         //
         Schema::create('HoSo', function ($table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('namecitizen');
             $table->timestamp('date_of_birth')->nullable();
             $table->string('phone');
             $table->string('email');

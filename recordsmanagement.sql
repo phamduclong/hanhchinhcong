@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th8 07, 2020 lúc 10:39 AM
+-- Thời gian đã tạo: Th8 12, 2020 lúc 02:11 PM
 -- Phiên bản máy phục vụ: 10.4.13-MariaDB
 -- Phiên bản PHP: 7.4.8
 
@@ -40,6 +40,7 @@ CREATE TABLE `citizen` (
   `file` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `block` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_hoso` int(11) NOT NULL,
+  `status_online` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -48,12 +49,12 @@ CREATE TABLE `citizen` (
 -- Đang đổ dữ liệu cho bảng `citizen`
 --
 
-INSERT INTO `citizen` (`id`, `username`, `password`, `name`, `date_of_birth`, `phone`, `email`, `address`, `reason`, `file`, `block`, `id_hoso`, `updated_at`, `created_at`) VALUES
-(1, 'vuductien', '123456', 'Vũ Đức Tiến', NULL, '01234567', 'tien@gmail.com', 'Hải Phòng', 'Thích Nộp', 'Không có', 'No', 1, NULL, NULL),
-(2, 'phamhungmanh', '123456', 'Phạm Hùng Mạnh', NULL, '01234567', 'manh@gmail.com', 'Thanh Hóa', 'Thích Nộp', 'Không có', 'No', 2, NULL, NULL),
-(3, 'vuthanhthien', '123456', 'Phạm Thanh Thiên', NULL, '01234567', 'thien@gmail.com', 'Hưng Yên', 'Thích Nộp', 'Không có', 'No', 3, NULL, NULL),
-(4, 'nguyenbahiep', '123456', 'Nguyễn Bá Hiệp', NULL, '01234567', 'hiep@gmail.com', 'Thái Bình', 'Thích Nộp', 'Không có', 'No', 4, NULL, NULL),
-(5, 'nguyenduchieu', '123456', 'Nguyễn Đức Hiếu', NULL, '01234567', 'hieu@gmail.com', 'Thanh Hóa', 'Thích Nộp', 'Không có', 'No', 5, NULL, NULL);
+INSERT INTO `citizen` (`id`, `username`, `password`, `name`, `date_of_birth`, `phone`, `email`, `address`, `reason`, `file`, `block`, `id_hoso`, `status_online`, `updated_at`, `created_at`) VALUES
+(1, 'vuductien', '123456', 'Vũ Đức Tiến', NULL, '01234567', 'tien@gmail.com', 'Hải Phòng', 'Thích Nộp', 'Không có', 'No', 1, 'offline', NULL, NULL),
+(2, 'phamhungmanh', '123456', 'Phạm Hùng Mạnh', NULL, '01234567', 'manh@gmail.com', 'Thanh Hóa', 'Thích Nộp', 'Không có', 'No', 2, 'offline', NULL, NULL),
+(3, 'vuthanhthien', '123456', 'Phạm Thanh Thiên', NULL, '01234567', 'thien@gmail.com', 'Hưng Yên', 'Thích Nộp', 'Không có', 'No', 3, 'offline', NULL, NULL),
+(4, 'nguyenbahiep', '123456', 'Nguyễn Bá Hiệp', NULL, '01234567', 'hiep@gmail.com', 'Thái Bình', 'Thích Nộp', 'Không có', 'No', 4, 'offline', NULL, NULL),
+(5, 'nguyenduchieu', '123456', 'Nguyễn Đức Hiếu', NULL, '01234567', 'hieu@gmail.com', 'Thanh Hóa', 'Thích Nộp', 'Không có', 'No', 5, 'offline', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -78,7 +79,7 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `hoso` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `namecitizen` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date_of_birth` timestamp NULL DEFAULT NULL,
   `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -96,12 +97,13 @@ CREATE TABLE `hoso` (
 -- Đang đổ dữ liệu cho bảng `hoso`
 --
 
-INSERT INTO `hoso` (`id`, `name`, `date_of_birth`, `phone`, `email`, `address`, `reason`, `file`, `status`, `id_mathutuc`, `id_hoso`, `updated_at`, `created_at`) VALUES
+INSERT INTO `hoso` (`id`, `namecitizen`, `date_of_birth`, `phone`, `email`, `address`, `reason`, `file`, `status`, `id_mathutuc`, `id_hoso`, `updated_at`, `created_at`) VALUES
 (1, 'Vũ Đức Tiến', NULL, '01234567', 'tien@gmail.com', 'Hải Phòng', 'Thích Nộp', 'Không có', 'Chưa xử Lý', 1, 1, NULL, NULL),
 (2, 'Phạm Hùng Mạnh', NULL, '01234567', 'manh@gmail.com', 'Thanh Hóa', 'Thích Nộp', 'Không có', 'Chưa xử Lý', 2, 2, NULL, NULL),
 (3, 'Phạm Thanh Thiên', NULL, '01234567', 'thien@gmail.com', 'Hưng Yên', 'Thích Nộp', 'Không có', 'Chưa xử Lý', 3, 3, NULL, NULL),
 (4, 'Nguyễn Bá Hiệp', NULL, '01234567', 'hiep@gmail.com', 'Thái Bình', 'Thích Nộp', 'Không có', 'Chưa xử Lý', 4, 4, NULL, NULL),
-(5, 'Nguyễn Đức Hiếu', NULL, '01234567', 'hieu@gmail.com', 'Thanh Hóa', 'Thích Nộp', 'Không có', 'Chưa xử Lý', 5, 5, NULL, NULL);
+(5, 'Nguyễn Đức Hiếu', NULL, '01234567', 'hieu@gmail.com', 'Thanh Hóa', 'Thích Nộp', 'Không có', 'Chưa xử Lý', 5, 5, NULL, NULL),
+(6, 'Đức Long', NULL, '0111111111', 'long@gmail.com', 'Hà Nội', 'THích', 'banphim.png', 'Chưa xử Lý', 4, 6, '2020-08-11 20:57:41', '2020-08-11 20:57:41');
 
 -- --------------------------------------------------------
 
@@ -111,7 +113,7 @@ INSERT INTO `hoso` (`id`, `name`, `date_of_birth`, `phone`, `email`, `address`, 
 
 CREATE TABLE `linhvuc` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `namelinhvuc` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_malinhvuc` int(11) NOT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL
@@ -121,7 +123,7 @@ CREATE TABLE `linhvuc` (
 -- Đang đổ dữ liệu cho bảng `linhvuc`
 --
 
-INSERT INTO `linhvuc` (`id`, `name`, `id_malinhvuc`, `updated_at`, `created_at`) VALUES
+INSERT INTO `linhvuc` (`id`, `namelinhvuc`, `id_malinhvuc`, `updated_at`, `created_at`) VALUES
 (1, 'Bất động sản', 1, NULL, NULL),
 (2, 'Giáo dục', 2, NULL, NULL),
 (3, 'Y tế', 3, NULL, NULL),
@@ -145,6 +147,7 @@ CREATE TABLE `manager` (
   `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `block` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_mathutuc` int(11) NOT NULL,
+  `status_online` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -153,10 +156,10 @@ CREATE TABLE `manager` (
 -- Đang đổ dữ liệu cho bảng `manager`
 --
 
-INSERT INTO `manager` (`id`, `username`, `password`, `name`, `date_of_birth`, `phone`, `email`, `address`, `type`, `block`, `id_mathutuc`, `updated_at`, `created_at`) VALUES
-(1, 'phamduclong', '123456', 'Phạm Đức Long', NULL, '01234567', 'long@gmail.com', 'Hà Nội', 'NoAdmin', 'No', 1, NULL, NULL),
-(2, 'admin', '123456', 'Admin', NULL, '01234567', 'admin@gmail.com', 'Hà Nội', 'Admin', 'No', 1, NULL, NULL),
-(5, NULL, NULL, 'Nguyễn Thanh Nam Mập', NULL, '0123456789', 'nam@gmail.com', 'Hà Nội', 'NoAdmin', 'No', 2, '2020-08-07 01:20:57', '2020-08-06 19:49:58');
+INSERT INTO `manager` (`id`, `username`, `password`, `name`, `date_of_birth`, `phone`, `email`, `address`, `type`, `block`, `id_mathutuc`, `status_online`, `updated_at`, `created_at`) VALUES
+(1, 'phamduclong', '123456', 'Phạm Đức Long', NULL, '01234567', 'long@gmail.com', 'Hà Nội', 'NoAdmin', 'No', 1, 'offline', NULL, NULL),
+(2, 'admin', '123456', 'Admin', NULL, '01234567', 'admin@gmail.com', 'Hà Nội', 'Admin', 'No', 1, 'offline', NULL, NULL),
+(3, 'admin1', '123456', 'Admin1', NULL, '01234567', 'admin1@gmail.com', 'Hà Nội', 'Admin', 'No', 1, 'offline', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -175,14 +178,14 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(73, '2014_10_12_000000_create_users_table', 1),
-(74, '2014_10_12_100000_create_password_resets_table', 1),
-(75, '2019_08_19_000000_create_failed_jobs_table', 1),
-(76, '2020_07_29_014112_manager', 1),
-(77, '2020_07_29_014420_citizen', 1),
-(78, '2020_07_29_014515_ho_so', 1),
-(79, '2020_07_29_014545_linh_vuc', 1),
-(80, '2020_07_29_014656_thu_tuc', 1);
+(113, '2014_10_12_000000_create_users_table', 1),
+(114, '2014_10_12_100000_create_password_resets_table', 1),
+(115, '2019_08_19_000000_create_failed_jobs_table', 1),
+(116, '2020_07_29_014112_manager', 1),
+(117, '2020_07_29_014420_citizen', 1),
+(118, '2020_07_29_014515_ho_so', 1),
+(119, '2020_07_29_014545_linh_vuc', 1),
+(120, '2020_07_29_014656_thu_tuc', 1);
 
 -- --------------------------------------------------------
 
@@ -204,10 +207,11 @@ CREATE TABLE `password_resets` (
 
 CREATE TABLE `thutuc` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `namethutuc` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_mathutuc` int(11) NOT NULL,
   `mucdo` int(11) NOT NULL,
   `id_malinhvuc` int(11) NOT NULL,
+  `linkform` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -216,11 +220,11 @@ CREATE TABLE `thutuc` (
 -- Đang đổ dữ liệu cho bảng `thutuc`
 --
 
-INSERT INTO `thutuc` (`id`, `name`, `id_mathutuc`, `mucdo`, `id_malinhvuc`, `updated_at`, `created_at`) VALUES
-(1, 'Cấp giấy tờ nhà đất', 1, 1, 1, NULL, NULL),
-(2, 'Xin giấy phép mở trường học', 2, 2, 2, NULL, NULL),
-(3, 'Xin Trang bị thêm trang thiết bị', 3, 3, 3, NULL, NULL),
-(4, 'Xây dựng cột đèn giao thông', 4, 4, 4, NULL, NULL);
+INSERT INTO `thutuc` (`id`, `namethutuc`, `id_mathutuc`, `mucdo`, `id_malinhvuc`, `linkform`, `updated_at`, `created_at`) VALUES
+(1, 'Cấp giấy tờ nhà đất', 1, 1, 1, 'citizen.listform.formcapgiayto', NULL, NULL),
+(2, 'Xin giấy phép mở trường học', 2, 2, 2, 'citizen.listform.formxinphepmo', NULL, NULL),
+(3, 'Xin Trang bị thêm trang thiết bị', 3, 3, 3, 'citizen.listform.formxintrangbi', NULL, NULL),
+(4, 'Xây dựng cột đèn giao thông', 4, 4, 4, 'citizen.listform.formxaydung', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -318,7 +322,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT cho bảng `hoso`
 --
 ALTER TABLE `hoso`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `linhvuc`
@@ -330,13 +334,13 @@ ALTER TABLE `linhvuc`
 -- AUTO_INCREMENT cho bảng `manager`
 --
 ALTER TABLE `manager`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 
 --
 -- AUTO_INCREMENT cho bảng `thutuc`

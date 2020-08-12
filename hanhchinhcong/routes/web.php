@@ -20,6 +20,10 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'citizen','namespace'=>'Citizen'], function () {
     Route::get('homecitizen',['as'=>'homecitizen','uses'=>'HomeController@index']);
+    Route::get('bothutuc',['as'=>'bothutuc','uses'=>'HomeController@boThuTuc']);
+    Route::get('detail_thutuc/{id}',['as'=>'detail_thutuc','uses'=>'HomeController@detailThuTuc']);
+    Route::get('nop_ho_so/{id}',['as'=>'nop_ho_so','uses'=>'HomeController@nopHoSo']);
+    Route::post('post-hoso/{idThutuc}',['as'=>'post-hoso','uses'=>'HomeController@postHoso']);
 });
 
 

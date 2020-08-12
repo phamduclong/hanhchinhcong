@@ -16,7 +16,7 @@ class HoSoSeeder extends Seeder
 
 
             [
-                'name' => "Vũ Đức Tiến",
+                'namecitizen' => "Vũ Đức Tiến",
                 'date_of_birth' => null,
                 'phone' => '01234567',
                 'email' => 'tien@gmail.com',
@@ -28,8 +28,8 @@ class HoSoSeeder extends Seeder
                 'id_hoso' => 1
             ],
             [
-                
-                'name' => "Phạm Hùng Mạnh",
+
+                'namecitizen' => "Phạm Hùng Mạnh",
                 'date_of_birth' => null,
                 'phone' => '01234567',
                 'email' => 'manh@gmail.com',
@@ -41,8 +41,8 @@ class HoSoSeeder extends Seeder
                 'id_hoso' => 2
             ],
             [
-                
-                'name' => "Phạm Thanh Thiên",
+
+                'namecitizen' => "Phạm Thanh Thiên",
                 'date_of_birth' => null,
                 'phone' => '01234567',
                 'email' => 'thien@gmail.com',
@@ -54,8 +54,8 @@ class HoSoSeeder extends Seeder
                 'id_hoso' => 3
             ],
             [
-                
-                'name' => "Nguyễn Bá Hiệp",
+
+                'namecitizen' => "Nguyễn Bá Hiệp",
                 'date_of_birth' => null,
                 'phone' => '01234567',
                 'email' => 'hiep@gmail.com',
@@ -67,8 +67,8 @@ class HoSoSeeder extends Seeder
                 'id_hoso' => 4
             ],
             [
-                
-                'name' => "Nguyễn Đức Hiếu",
+
+                'namecitizen' => "Nguyễn Đức Hiếu",
                 'date_of_birth' => null,
                 'phone' => '01234567',
                 'email' => 'hieu@gmail.com',

@@ -16,10 +16,11 @@ class ThuTuc extends Migration
         //
         Schema::create('ThuTuc', function ($table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('namethutuc');
             $table->integer('id_mathutuc');
             $table->integer('mucdo');
             $table->integer('id_malinhvuc');
+            $table->string('linkform');
             $table->timestamp('updated_at')->nullable();
             $table->timestamp('created_at')->nullable();
         });

@@ -16,19 +16,19 @@ class LinhVucSeeder extends Seeder
 
 
             [
-                'name' => "Bất động sản",
+                'namelinhvuc' => "Bất động sản",
                 'id_malinhvuc' => 1
             ],
             [
-                'name' => "Giáo dục",
+                'namelinhvuc' => "Giáo dục",
                 'id_malinhvuc' => 2
             ],
             [
-                'name' => "Y tế",
+                'namelinhvuc' => "Y tế",
                 'id_malinhvuc' => 3
             ],
             [
-                'name' => "Giao thông",
+                'namelinhvuc' => "Giao thông",
                 'id_malinhvuc' => 4
             ]
 

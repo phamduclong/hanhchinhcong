@@ -24,7 +24,8 @@ class ManagerSeeder extends Seeder
                 'address' => 'Hà Nội',
                 'type' => "NoAdmin",
                 'block' => 'No',
-                'id_mathutuc' => 1
+                'id_mathutuc' => 1,
+                'status_online'=>'offline'
             ],
 
             [
@@ -37,8 +38,24 @@ class ManagerSeeder extends Seeder
                 'address' => 'Hà Nội',
                 'type' => "Admin",
                 'block' => 'No',
-                'id_mathutuc' => 1
+                'id_mathutuc' => 1,
+                'status_online' => 'offline'
+            ],
+
+            [
+                'username' => "admin1",
+                'password' => "123456",
+                'name' => "Admin1",
+                'date_of_birth' => null,
+                'phone' => '01234567',
+                'email' => 'admin1@gmail.com',
+                'address' => 'Hà Nội',
+                'type' => "Admin",
+                'block' => 'No',
+                'id_mathutuc' => 1,
+                'status_online' => 'offline'
             ]
+
 
         ]);
     }
