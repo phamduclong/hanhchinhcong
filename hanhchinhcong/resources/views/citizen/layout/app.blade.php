@@ -15,6 +15,7 @@
 
   <!-- Custom styles for this template -->
   <link href="{{asset('asset2/css/simple-sidebar.css')}}" rel="stylesheet">
+  <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 
 </head>
 

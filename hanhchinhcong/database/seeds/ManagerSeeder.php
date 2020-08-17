@@ -38,7 +38,7 @@ class ManagerSeeder extends Seeder
                 'address' => 'Hà Nội',
                 'type' => "Admin",
                 'block' => 'No',
-                'id_mathutuc' => 1,
+                'id_mathutuc' => 2,
                 'status_online' => 'offline'
             ],
 
@@ -52,7 +52,7 @@ class ManagerSeeder extends Seeder
                 'address' => 'Hà Nội',
                 'type' => "Admin",
                 'block' => 'No',
-                'id_mathutuc' => 1,
+                'id_mathutuc' => 3,
                 'status_online' => 'offline'
             ]
 

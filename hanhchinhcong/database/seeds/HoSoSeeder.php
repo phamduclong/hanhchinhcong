@@ -25,7 +25,8 @@ class HoSoSeeder extends Seeder
                 'file' => 'Không có',
                 'status' => 'Chưa xử Lý',
                 'id_mathutuc' => 1,
-                'id_hoso' => 1
+                'id_hoso' => 1,
+                'note'=>null
             ],
             [
 
@@ -38,7 +39,8 @@ class HoSoSeeder extends Seeder
                 'file' => 'Không có',
                 'status' => 'Chưa xử Lý',
                 'id_mathutuc' => 2,
-                'id_hoso' => 2
+                'id_hoso' => 2,
+                'note' => null
             ],
             [
 
@@ -51,7 +53,8 @@ class HoSoSeeder extends Seeder
                 'file' => 'Không có',
                 'status' => 'Chưa xử Lý',
                 'id_mathutuc' => 3,
-                'id_hoso' => 3
+                'id_hoso' => 3,
+                'note' => null
             ],
             [
 
@@ -64,7 +67,8 @@ class HoSoSeeder extends Seeder
                 'file' => 'Không có',
                 'status' => 'Chưa xử Lý',
                 'id_mathutuc' => 4,
-                'id_hoso' => 4
+                'id_hoso' => 4,
+                'note' => null
             ],
             [
 
@@ -77,7 +81,8 @@ class HoSoSeeder extends Seeder
                 'file' => 'Không có',
                 'status' => 'Chưa xử Lý',
                 'id_mathutuc' => 5,
-                'id_hoso' => 5
+                'id_hoso' => 5,
+                'note' => null
             ]
 
         ]);

@@ -1,5 +1,53 @@
 @extends('admin.layout.app')
 @section('content')
+
+
+<script>
+
+    // Enable pusher logging - don't include this in production
+    //Pusher.logToConsole = true;
+
+    var pusher = new Pusher('aa4d6d77e1498fc55765', {
+      cluster: 'ap1'
+    });
+
+    var channel = pusher.subscribe('my-channel-thongbao');
+    channel.bind('my-event-thongbao', function(data) {
+      //alert(JSON.stringify(data));
+      $(document).ready(function(){
+          $('.modal-body-thongbao').html(data.message);
+          $('#modalThongBao').modal('show');
+      });
+      
+    });
+</script>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalThongBao" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body-thongbao">
+        ...
+      </div>
+      <div class="modal-footer">
+        {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
+        <button type="button" class="btn btn-primary">
+            <a href="{{route('xu-ly-thong-bao-tu-cong-dan')}}" style="color: white">
+                OK
+            </a>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -29,7 +77,7 @@
                     </div>
                     <div class="box-body">
                         <!-- /.box-header -->
-                        <div class="div">
+                        {{-- <div class="div">
                             <div class="row">
                                 <div class="col-xs-4">
                                     <div class="form-group">
@@ -43,7 +91,7 @@
                                         <select name="status" id="show_job" class="form-control"><option value="" selected="">Chọn chức vụ</option></select>
                                     </div>
                                 </div> --}}
-                                <div class="col-xs-2">
+                                {{-- <div class="col-xs-2">
                                     <div class="form-group">
                                         <label>&nbsp;</label>
                                         <input class="form-control btn btn-primary" type="submit" value="Tìm kiếm">
@@ -56,7 +104,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <table id="data_table" class="table table-bordered table-striped">
                             <thead>
                             <tr>
@@ -74,11 +122,12 @@
                                 <th class="bg-primary">Hành động</th>
                             </tr>
                             </thead>
-                            @foreach($hoso as $hs)
+                            
                             <tbody id="show_data">
+                                @foreach($hoso as $hs)
                                 <tr>
                                     <td>{{$hs->id}}</td>
-                                    <td>{{$hs->name}}</td>
+                                    <td>{{$hs->namecitizen}}</td>
                                     <td>{{$hs->phone}}</td>
                                     <td>{{$hs->email}}</td>
                                     <td>{{$hs->address}}</td>
@@ -88,16 +137,29 @@
                                     <td>{{$hs->id_mathutuc}}</td>
                                     <td>{{$hs->id_hoso}}</td>
                                     <td>
-                                        <button class="btn btn-action label label-danger" style="margin-right: 5px">
-                                            <i class="fa fa-trash"></i>
+                                        <button class="btn btn-danger">
+                                            <a href="{{route('nhan-ho-so',$hs->id)}}" style="color: white">
+                                                Nhận Hồ Sơ
+                                            </a>
                                         </button>
-                                        <button class="btn btn-action label label-success">
-                                            <i class="fa fa-pencil"></i>
+                                        <br><br>
+                                        <button class="btn btn-success">
+                                            <a href="{{route('tra-ho-so',$hs->id)}}" style="color: white">
+                                                Trả Hồ Sơ
+                                            </a>
+                                        </button>
+                                        <br><br>
+                                        <button class="btn btn-warning">
+                                            <a href="{{route('ghi-chu-ho-so',$hs->id)}}" style="color: white">
+                                                Thêm Ghi Chú
+                                            </a>
                                         </button>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
-                            @endforeach
+                            
+                            <tfoot></tfoot>
                         </table>
                     </div>
                     <!-- /.box-body -->

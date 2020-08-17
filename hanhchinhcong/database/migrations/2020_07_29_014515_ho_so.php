@@ -26,6 +26,7 @@ class HoSo extends Migration
             $table->string('status');
             $table->integer('id_mathutuc');
             $table->integer('id_hoso');
+            $table->string('note')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->timestamp('created_at')->nullable();
         });

@@ -59,6 +59,7 @@
                                     </div>
                                     {{csrf_field()}}
                                 </form>
+                                @if(Session::get('typeAdmin') == 'Admin')
                                 <div class="col-xs-2">
                                     <div class="form-group">
                                         <label>&nbsp;</label>
@@ -68,6 +69,7 @@
                                              <button type="button" class="form-control btn btn-success" data-toggle="modal"  id="buttonAdd">Thêm mới</button>
                                     </div>
                                 </div>
+                                @endif
                             </div>
                         </div>
                         <table id="data_table" class="table table-bordered table-striped">
@@ -79,8 +81,10 @@
                                 <th class="bg-primary">Số điện thoại</th>
                                 <th class="bg-primary" width="300px">Địa chỉ</th>
                                 <th class="bg-primary">Thủ tục quản lý</th>
+                                @if(Session::get('typeAdmin') == 'Admin')
                                 <th class="bg-primary">Hành động</th>
                                 <th class="bg-primary">Block</th>
+                                @endif
                             </tr>
                             </thead>
                             @foreach($nhanvien as $staff)
@@ -91,6 +95,7 @@
                                     <td>{{$staff->phone}}</td>
                                     <td>{{$staff->address}}</td>
                                     <td>{{$staff->id_mathutuc}}</td>
+                                    @if(Session::get('typeAdmin') == 'Admin')
                                     <td>
                                         <button class="btn btn-action label label-danger buttonDelete" style="margin-right: 5px" point="{{$staff->id}}">
                                             <i class="fa fa-trash"></i>
@@ -169,6 +174,7 @@
                                             </button>
                                         </form>
                                     </td>
+                                    @endif
                                 </tr>
                             </tbody>
                             @endforeach

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th8 12, 2020 lúc 02:11 PM
+-- Thời gian đã tạo: Th8 17, 2020 lúc 12:30 PM
 -- Phiên bản máy phục vụ: 10.4.13-MariaDB
 -- Phiên bản PHP: 7.4.8
 
@@ -50,7 +50,7 @@ CREATE TABLE `citizen` (
 --
 
 INSERT INTO `citizen` (`id`, `username`, `password`, `name`, `date_of_birth`, `phone`, `email`, `address`, `reason`, `file`, `block`, `id_hoso`, `status_online`, `updated_at`, `created_at`) VALUES
-(1, 'vuductien', '123456', 'Vũ Đức Tiến', NULL, '01234567', 'tien@gmail.com', 'Hải Phòng', 'Thích Nộp', 'Không có', 'No', 1, 'offline', NULL, NULL),
+(1, 'vuductien', '123456', 'Vũ Đức Tiến', NULL, '01234567', 'tien@gmail.com', 'Hải Phòng', 'Thích Nộp', 'Không có', 'No', 1, 'offline', '2020-08-15 20:13:16', NULL),
 (2, 'phamhungmanh', '123456', 'Phạm Hùng Mạnh', NULL, '01234567', 'manh@gmail.com', 'Thanh Hóa', 'Thích Nộp', 'Không có', 'No', 2, 'offline', NULL, NULL),
 (3, 'vuthanhthien', '123456', 'Phạm Thanh Thiên', NULL, '01234567', 'thien@gmail.com', 'Hưng Yên', 'Thích Nộp', 'Không có', 'No', 3, 'offline', NULL, NULL),
 (4, 'nguyenbahiep', '123456', 'Nguyễn Bá Hiệp', NULL, '01234567', 'hiep@gmail.com', 'Thái Bình', 'Thích Nộp', 'Không có', 'No', 4, 'offline', NULL, NULL),
@@ -89,6 +89,7 @@ CREATE TABLE `hoso` (
   `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_mathutuc` int(11) NOT NULL,
   `id_hoso` int(11) NOT NULL,
+  `note` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -97,13 +98,17 @@ CREATE TABLE `hoso` (
 -- Đang đổ dữ liệu cho bảng `hoso`
 --
 
-INSERT INTO `hoso` (`id`, `namecitizen`, `date_of_birth`, `phone`, `email`, `address`, `reason`, `file`, `status`, `id_mathutuc`, `id_hoso`, `updated_at`, `created_at`) VALUES
-(1, 'Vũ Đức Tiến', NULL, '01234567', 'tien@gmail.com', 'Hải Phòng', 'Thích Nộp', 'Không có', 'Chưa xử Lý', 1, 1, NULL, NULL),
-(2, 'Phạm Hùng Mạnh', NULL, '01234567', 'manh@gmail.com', 'Thanh Hóa', 'Thích Nộp', 'Không có', 'Chưa xử Lý', 2, 2, NULL, NULL),
-(3, 'Phạm Thanh Thiên', NULL, '01234567', 'thien@gmail.com', 'Hưng Yên', 'Thích Nộp', 'Không có', 'Chưa xử Lý', 3, 3, NULL, NULL),
-(4, 'Nguyễn Bá Hiệp', NULL, '01234567', 'hiep@gmail.com', 'Thái Bình', 'Thích Nộp', 'Không có', 'Chưa xử Lý', 4, 4, NULL, NULL),
-(5, 'Nguyễn Đức Hiếu', NULL, '01234567', 'hieu@gmail.com', 'Thanh Hóa', 'Thích Nộp', 'Không có', 'Chưa xử Lý', 5, 5, NULL, NULL),
-(6, 'Đức Long', NULL, '0111111111', 'long@gmail.com', 'Hà Nội', 'THích', 'banphim.png', 'Chưa xử Lý', 4, 6, '2020-08-11 20:57:41', '2020-08-11 20:57:41');
+INSERT INTO `hoso` (`id`, `namecitizen`, `date_of_birth`, `phone`, `email`, `address`, `reason`, `file`, `status`, `id_mathutuc`, `id_hoso`, `note`, `updated_at`, `created_at`) VALUES
+(1, 'Vũ Đức Tiến', NULL, '01234567', 'tien@gmail.com', 'Hải Phòng', 'Thích Nộp', 'Không có', 'Đã Trả Kết Quả', 1, 1, 'pp-pp', '2020-08-17 03:27:55', NULL),
+(2, 'Phạm Hùng Mạnh', NULL, '01234567', 'manh@gmail.com', 'Thanh Hóa', 'Thích Nộp', 'banphim.png', 'Đang xử Lý', 2, 2, 'hồ sơ chưa có file đính kèm', '2020-08-17 03:18:15', NULL),
+(3, 'Phạm Thanh Thiên', NULL, '01234567', 'thien@gmail.com', 'Hưng Yên', 'Thích Nộp', 'Không có', 'Đã Trả Kết Quả', 3, 3, NULL, '2020-08-15 02:11:09', NULL),
+(4, 'Nguyễn Bá Hiệp', NULL, '01234567', 'hiep@gmail.com', 'Thái Bình', 'Thích Nộp', 'Không có', 'Chưa xử Lý', 4, 4, NULL, NULL, NULL),
+(5, 'Nguyễn Đức Hiếu', NULL, '01234567', 'hieu@gmail.com', 'Thanh Hóa', 'Thích Nộp', 'Không có', 'Chưa xử Lý', 5, 5, NULL, NULL, NULL),
+(6, 'Phạm Hùng Mạnh', NULL, '0999999', 'manh@gmail.com', 'THanh Hóa', 'cần gấp', 'banphim.png', 'Đã Trả Kết Quả', 1, 6, 'hồ sơ mới chỉ có ảnh', '2020-08-17 02:57:22', '2020-08-14 19:28:43'),
+(7, 'Vũ Đức Tiến', NULL, '099999', 'tien@gmail.com', 'Hải Phòng', 'cần nộp', 'banphim.png', 'Đã Trả Kết Quả', 2, 7, NULL, '2020-08-17 03:26:52', '2020-08-15 00:39:48'),
+(8, 'Vũ Đức Tiến', NULL, '088888', 'tien@gmail.com', 'Hải Phòng', 'Cần', 'banphim.png', 'Đã Trả Kết Quả', 3, 8, NULL, '2020-08-15 02:11:36', '2020-08-15 00:56:26'),
+(9, 'Vũ Đức Tiến', NULL, '099999', 'tien@gmail.com', 'Hải Phòng', 'cần', 'banphim.png', 'Đã Trả Kết Quả', 4, 9, 'hồ sơ vớ va vớ vẩn', '2020-08-17 03:27:08', '2020-08-15 01:02:56'),
+(10, 'Phạm Hùng Mạnh', NULL, '11111', 'manh@gmail.com', 'thanh hóa', 'cần', 'banphim.png', 'Chưa xử Lý', 3, 10, NULL, '2020-08-15 02:13:34', '2020-08-15 02:13:34');
 
 -- --------------------------------------------------------
 
@@ -157,9 +162,10 @@ CREATE TABLE `manager` (
 --
 
 INSERT INTO `manager` (`id`, `username`, `password`, `name`, `date_of_birth`, `phone`, `email`, `address`, `type`, `block`, `id_mathutuc`, `status_online`, `updated_at`, `created_at`) VALUES
-(1, 'phamduclong', '123456', 'Phạm Đức Long', NULL, '01234567', 'long@gmail.com', 'Hà Nội', 'NoAdmin', 'No', 1, 'offline', NULL, NULL),
-(2, 'admin', '123456', 'Admin', NULL, '01234567', 'admin@gmail.com', 'Hà Nội', 'Admin', 'No', 1, 'offline', NULL, NULL),
-(3, 'admin1', '123456', 'Admin1', NULL, '01234567', 'admin1@gmail.com', 'Hà Nội', 'Admin', 'No', 1, 'offline', NULL, NULL);
+(1, 'phamduclong', '123456', 'Phạm Đức Long', NULL, '01234567', 'long@gmail.com', 'Hà Nội', 'NoAdmin', 'No', 1, 'offline', '2020-08-15 23:41:28', NULL),
+(2, 'admin', '123456', 'Admin', NULL, '01234567', 'admin@gmail.com', 'Hà Nội', 'Admin', 'No', 2, 'online', '2020-08-15 23:42:07', NULL),
+(3, 'admin1', '123456', 'Admin1', NULL, '01234567', 'admin1@gmail.com', 'Hà Nội', 'Admin', 'No', 3, 'offline', '2020-08-15 23:41:48', NULL),
+(4, NULL, NULL, 'HIếu', NULL, '1111', 'hieu@gmail.com', 'ha noi', 'NoAdmin', 'No', 4, NULL, '2020-08-15 01:08:38', '2020-08-15 01:08:38');
 
 -- --------------------------------------------------------
 
@@ -178,14 +184,14 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(113, '2014_10_12_000000_create_users_table', 1),
-(114, '2014_10_12_100000_create_password_resets_table', 1),
-(115, '2019_08_19_000000_create_failed_jobs_table', 1),
-(116, '2020_07_29_014112_manager', 1),
-(117, '2020_07_29_014420_citizen', 1),
-(118, '2020_07_29_014515_ho_so', 1),
-(119, '2020_07_29_014545_linh_vuc', 1),
-(120, '2020_07_29_014656_thu_tuc', 1);
+(129, '2014_10_12_000000_create_users_table', 1),
+(130, '2014_10_12_100000_create_password_resets_table', 1),
+(131, '2019_08_19_000000_create_failed_jobs_table', 1),
+(132, '2020_07_29_014112_manager', 1),
+(133, '2020_07_29_014420_citizen', 1),
+(134, '2020_07_29_014515_ho_so', 1),
+(135, '2020_07_29_014545_linh_vuc', 1),
+(136, '2020_07_29_014656_thu_tuc', 1);
 
 -- --------------------------------------------------------
 
@@ -322,7 +328,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT cho bảng `hoso`
 --
 ALTER TABLE `hoso`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT cho bảng `linhvuc`
@@ -334,13 +340,13 @@ ALTER TABLE `linhvuc`
 -- AUTO_INCREMENT cho bảng `manager`
 --
 ALTER TABLE `manager`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=137;
 
 --
 -- AUTO_INCREMENT cho bảng `thutuc`

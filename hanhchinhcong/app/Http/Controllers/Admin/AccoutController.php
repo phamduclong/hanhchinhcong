@@ -35,7 +35,7 @@ class AccoutController extends Controller
         $accout = DB::table('manager')->where([
             ['username','=',$username],
             ['password','=',$password],
-            ['type','=','Admin']
+            ['block','=','No']
         
         ])->count();
 
@@ -49,11 +49,11 @@ class AccoutController extends Controller
             $taikhoan = DB::table('manager')->where([
                 ['username', '=', $username],
                 ['password', '=', $password],
-                ['type', '=', 'Admin']
+                ['block', '=', 'No']
 
             ])->get();
 
-            //dd($taikhoan);
+            //dd($taikhoan[0]->type);
 
             $id = $taikhoan[0]->id;
             $ACCOUT = Manager::find($id);
@@ -64,7 +64,7 @@ class AccoutController extends Controller
 
             Session::put('login','YES');
             Session::put('USERNAME', $taikhoan[0]->name);
-
+            Session::put('typeAdmin',$taikhoan[0]->type);
             // Session::put('TaiKhoan' . $taikhoan[0]->name, $taikhoan[0]->name);
 
             // dd(Session::all());
@@ -89,7 +89,8 @@ class AccoutController extends Controller
     public function logout(){
         
 
-        $taikhoan=DB::table('manager')->where('username','=',Session::get('USERNAME'))->get();
+        $taikhoan=DB::table('manager')->where('name','=',Session::get('USERNAME'))->get();
+        //dd($taikhoan);
         $id = $taikhoan[0]->id;
         $ACCOUT = Manager::find($id);
         $ACCOUT->status_online = 'offline';
@@ -100,6 +101,7 @@ class AccoutController extends Controller
         
         Session::forget('login');
         Session::forget('USERNAME');
+        Session::forget('typeAdmin');
         return redirect(route('login'));
     }
 }

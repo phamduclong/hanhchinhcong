@@ -65,8 +65,10 @@
                                 <!--                                    <th class="bg-primary">Chức vụ</th>-->
                                 <th class="bg-primary">Số điện thoại</th>
                                 <th class="bg-primary" width="300px">Địa chỉ</th>
-                                <th class="bg-primary">Hành động</th>
-                                <th class="bg-primary">Block</th>
+                                @if(Session::get('typeAdmin') == 'Admin')
+                                    <th class="bg-primary">Hành động</th>
+                                    <th class="bg-primary">Block</th>
+                                @endif
                             </tr>
                             </thead>
                             @foreach($congdan as $citizen)
@@ -76,26 +78,28 @@
                                     <td>{{$citizen->name}}</td>
                                     <td>{{$citizen->phone}}</td>
                                     <td>{{$citizen->address}}</td>
-                                    <td>
-                                        <button class="btn btn-action label label-danger" style="margin-right: 5px">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                        <button class="btn btn-action label label-success">
-                                            <i class="fa fa-pencil"></i>
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <form action="{{route('post-block-congdan',$citizen->id)}}" method="post" enctype="multipart/form-data">
-                                            <select name="block">                                       
-                                                    <option value="Yes" <?php echo $citizen->block=='Yes'?' selected ':'' ?>>Yes</option>
-                                                    <option value="No" <?php echo $citizen->block=='No'?' selected ':'' ?>>No</option>
-                                            </select>
-                                            {{csrf_field()}}
-                                            <button class="btn btn-action label label-warning" type="submit">
-                                                Save
+                                    @if(Session::get('typeAdmin') == 'Admin')
+                                        <td>
+                                            <button class="btn btn-action label label-danger" style="margin-right: 5px">
+                                                <i class="fa fa-trash"></i>
                                             </button>
-                                        </form>
-                                    </td>
+                                            <button class="btn btn-action label label-success">
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <form action="{{route('post-block-congdan',$citizen->id)}}" method="post" enctype="multipart/form-data">
+                                                <select name="block">                                       
+                                                        <option value="Yes" <?php echo $citizen->block=='Yes'?' selected ':'' ?>>Yes</option>
+                                                        <option value="No" <?php echo $citizen->block=='No'?' selected ':'' ?>>No</option>
+                                                </select>
+                                                {{csrf_field()}}
+                                                <button class="btn btn-action label label-warning" type="submit">
+                                                    Save
+                                                </button>
+                                            </form>
+                                        </td>
+                                    @endif
                                 </tr>
                             </tbody>
                             @endforeach

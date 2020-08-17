@@ -24,6 +24,18 @@ Route::group(['prefix' => 'citizen','namespace'=>'Citizen'], function () {
     Route::get('detail_thutuc/{id}',['as'=>'detail_thutuc','uses'=>'HomeController@detailThuTuc']);
     Route::get('nop_ho_so/{id}',['as'=>'nop_ho_so','uses'=>'HomeController@nopHoSo']);
     Route::post('post-hoso/{idThutuc}',['as'=>'post-hoso','uses'=>'HomeController@postHoso']);
+
+    //Đăng ký, Đăng nhập
+    Route::get('dangky',['as'=>'dangky','uses'=>'CitizenController@dangKy']);
+    Route::post('handle-dangky',['as'=>'handle-dangky','uses'=>'CitizenController@handleDangky']);
+    Route::get('dangnhap',['as'=>'dangnhap','uses'=>'CitizenController@dangNhap']);
+    Route::post('handle-dangnhap',['as'=>'handle-dangnhap','uses'=>'CitizenController@handleDangnhap']);
+    Route::get('dangxuat',['as'=>'dangxuat','uses'=>'CitizenController@dangXuat']);
+
+    //Tra cứu hồ sơ
+    Route::get('tracuuhoso',['as'=>'tracuuhoso','uses'=>'HomeController@traCuuHoSo']);
+    Route::get('edit-file-hoso/{id}',['as'=> 'edit-file-hoso','uses'=>'HomeController@editFileHoso']);
+    Route::post('post-edit-file-hoso/{id}',['as'=> 'post-edit-file-hoso','uses'=>'HomeController@postEditFileHoso']);
 });
 
 
@@ -52,6 +64,30 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
 
     Route::get('admin_list_linhvuc', ['as' => 'admin_list_linhvuc', 'uses' => 'HomeController@getListLinhvuc']);
+    Route::get('add-linhvuc',['as'=>'add-linhvuc','uses'=>'HomeController@addLinhvuc']);
+    Route::post('post-add-linhvuc',['as'=>'post-add-linhvuc','uses'=>'HomeController@postAddLinhvuc']);
+    Route::get('edit-linhvuc/{id}',['as'=>'edit-linhvuc','uses'=>'HomeController@editLinhvuc']);
+    Route::post('post-edit-linhvuc/{id}',['as'=>'post-edit-linhvuc','uses'=>'HomeController@postEditLinhvuc']);
+    Route::get('delete-linhvuc/{id}',['as'=>'delete-linhvuc','uses'=>'HomeController@deleteLinhvuc']);
+
+
     Route::get('admin_list_thutuc', ['as' => 'admin_list_thutuc', 'uses' => 'HomeController@getListThutuc']);
+    Route::get('add-thutuc',['as'=>'add-thutuc','uses'=>'HomeController@addThutuc']);
+    Route::post('post-add-thutuc',['as'=>'post-add-thutuc','uses'=>'HomeController@postAddThutuc']);
+    Route::get('edit-thutuc/{id}', ['as' => 'edit-thutuc', 'uses' => 'HomeController@editThutuc']);
+    Route::post('post-edit-thutuc/{id}', ['as' => 'post-edit-thutuc', 'uses' => 'HomeController@postEditThutuc']);
+    Route::get('delete-thutuc/{id}',['as'=>'delete-thutuc','uses'=>'HomeController@deleteThutuc']);
+
+
     Route::get('admin_list_hoso', ['as' => 'admin_list_hoso', 'uses' => 'HomeController@getListHoso']);
+    Route::get('nhan-ho-so/{id}',['as'=>'nhan-ho-so','uses'=>'HomeController@nhanHoSo']);
+    Route::get('tra-ho-so/{id}', ['as' => 'tra-ho-so', 'uses' => 'HomeController@traHoSo']);
+    Route::get('ghi-chu-ho-so/{id}', ['as' => 'ghi-chu-ho-so', 'uses' => 'HomeController@ghiChuHoSo']);
+    Route::post('post-ghi-chu-ho-so/{id}',['as'=>'post-ghi-chu-ho-so','uses'=>'HomeController@postGhiChuHoSo']);
+
+
+
+    Route::get('xu-ly-thong-bao-tu-cong-dan',['as'=> 'xu-ly-thong-bao-tu-cong-dan','uses'=>'HomeController@xuLyThongBao']);
+    Route::get('delete-all-message',['as'=>'delete-all-message','uses'=>'HomeController@deleteAllMessage']);
+
 });

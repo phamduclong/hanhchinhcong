@@ -49,12 +49,14 @@
                                         <input class="form-control btn btn-primary" type="submit" value="Tìm kiếm">
                                     </div>
                                 </div>
+                                @if(Session::get('typeAdmin') == 'Admin')
                                 <div class="col-xs-2">
                                     <div class="form-group">
                                         <label>&nbsp;</label>
-                                        <a class="form-control btn btn-success" data-toggle="modal" href="#modal_add_employee">Thêm mới</a>
+                                    <a class="form-control btn btn-success" data-toggle="modal" href="{{route('add-linhvuc')}}">Thêm mới</a>
                                     </div>
                                 </div>
+                                @endif
                             </div>
                         </div>
                         <table id="data_table" class="table table-bordered table-striped">
@@ -64,23 +66,31 @@
                                 <th class="bg-primary" width="300px">Tên lĩnh vực</th>
                                 <!--                                    <th class="bg-primary">Chức vụ</th>-->
                                 <th class="bg-primary">Id Mã Lĩnh Vực</th>
+                                @if(Session::get('typeAdmin') == 'Admin')
                                 <th class="bg-primary">Hành động</th>
+                                @endif
                             </tr>
                             </thead>
                             @foreach($linhvuc as $lv)
                             <tbody id="show_data">
                                 <tr>
                                     <td>{{$lv->id}}</td>
-                                    <td>{{$lv->name}}</td>
+                                    <td>{{$lv->namelinhvuc}}</td>
                                     <td>{{$lv->id_malinhvuc}}</td>
+                                    @if(Session::get('typeAdmin') == 'Admin')
                                     <td>
                                         <button class="btn btn-action label label-danger" style="margin-right: 5px">
-                                            <i class="fa fa-trash"></i>
+                                            <a href="{{route('delete-linhvuc',$lv->id)}}" style="color: white">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
                                         </button>
                                         <button class="btn btn-action label label-success">
-                                            <i class="fa fa-pencil"></i>
+                                            <a href="{{route('edit-linhvuc',$lv->id)}}" style="color: white">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
                                         </button>
                                     </td>
+                                    @endif
                                 </tr>
                             </tbody>
                             @endforeach

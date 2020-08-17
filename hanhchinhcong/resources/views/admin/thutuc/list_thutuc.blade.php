@@ -49,12 +49,14 @@
                                         <input class="form-control btn btn-primary" type="submit" value="Tìm kiếm">
                                     </div>
                                 </div>
+                                @if(Session::get('typeAdmin') == 'Admin')
                                 <div class="col-xs-2">
                                     <div class="form-group">
                                         <label>&nbsp;</label>
-                                        <a class="form-control btn btn-success" data-toggle="modal" href="#modal_add_employee">Thêm mới</a>
+                                        <a class="form-control btn btn-success" data-toggle="modal" href="{{route('add-thutuc')}}">Thêm mới</a>
                                     </div>
                                 </div>
+                                @endif
                             </div>
                         </div>
                         <table id="data_table" class="table table-bordered table-striped">
@@ -66,25 +68,33 @@
                                 <th class="bg-primary">Id Mã thủ tục</th>
                                 <th class="bg-primary">Mức độ</th>
                                 <th class="bg-primary">Id Mã lĩnh vực</th>
+                                @if(Session::get('typeAdmin') == 'Admin')
                                 <th class="bg-primary">Hành động</th>
+                                @endif
                             </tr>
                             </thead>
                             @foreach($thutuc as $tt)
                             <tbody id="show_data">
                                 <tr>
                                     <td>{{$tt->id}}</td>
-                                    <td>{{$tt->name}}</td>
+                                    <td>{{$tt->namethutuc}}</td>
                                     <td>{{$tt->id_mathutuc}}</td>
                                     <td>{{$tt->mucdo}}</td>
                                     <td>{{$tt->id_malinhvuc}}</td>
+                                    @if(Session::get('typeAdmin') == 'Admin')
                                     <td>
                                         <button class="btn btn-action label label-danger" style="margin-right: 5px">
-                                            <i class="fa fa-trash"></i>
+                                            <a href="{{route('delete-thutuc',$tt->id)}}" style="color: white">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
                                         </button>
                                         <button class="btn btn-action label label-success">
-                                            <i class="fa fa-pencil"></i>
+                                            <a href="{{route('edit-thutuc',$tt->id)}}" style="color: white">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
                                         </button>
                                     </td>
+                                    @endif
                                 </tr>
                             </tbody>
                             @endforeach
