@@ -21,7 +21,7 @@
 
       if(username_citizen == data.hs[0].namecitizen){
 
-        var id = String(data.hs[0].id);
+        var id = String(data.hs[0].id_hoso);
         var trangthai = 'trangthai'+id;
         //var length = data.contentOfMessage.length;
 
@@ -47,6 +47,7 @@
           count = count + 1;
           localStorage.setItem('numberOfMessage'+username_citizen,count);
 
+          document.getElementById('CONTENT_MESSAGE').innerHTML = "";
           var node = document.createElement("p");
           var textnode = document.createTextNode(data.hs[0].status);
           node.appendChild(textnode);  
@@ -55,11 +56,16 @@
           document.getElementById("CONTENT_MESSAGE").appendChild(node);
         }
 
+        
+
         if(oldNote != newNote && newNote != null){
+
+          //console.log(oldNote +'and'+newNote);
           var count = parseInt(localStorage.getItem('numberOfMessage'+username_citizen));
           count = count + 1;
           localStorage.setItem('numberOfMessage'+username_citizen,count);
 
+          document.getElementById('CONTENT_MESSAGE').innerHTML = "";
           var node = document.createElement("p");
           var textnode = document.createTextNode(data.hs[0].note);
           node.appendChild(textnode);  
@@ -67,6 +73,10 @@
           node.setAttribute("class","dropdown-item");
           document.getElementById("CONTENT_MESSAGE").appendChild(node);
         }
+
+        // if(oldNote != newNote){
+        //   console.log(oldNote+newNote);
+        // }
 
 
 
@@ -113,6 +123,41 @@
 
 </script>
 
+<div style="text-align: right">
+<div class="dropdown">
+  <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown">
+    Thông Báo
+    <span class="badge badge-danger" id='messageThongbao'>
+        0
+    </span>
+  </a>
+  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+    
+    <div id='CONTENT_MESSAGE'>
+      {{-- @if(Session::has('contentOfMessage'.Session::get('USERNAME_CITIZEN')) && Session::get('contentOfMessage'.Session::get('USERNAME_CITIZEN')) != null)
+          @foreach(Session::get('contentOfMessage'.Session::get('USERNAME_CITIZEN')) as $key=>$item)
+            <p class="dropdown-item" style="color: red;font-weight:bold" id="{{'ITEM_MESSAGE'.$key}}">{{$item}}</p>
+            <div class="dropdown-divider"></div>
+          @endforeach
+      @else 
+      <p class="dropdown-item" style="color: red;font-weight:bold" id="HIDE_TEXT">
+        Không Có Thông Báo Mới
+      </p>
+      @endif --}}
+    </div>
+
+    <p class="dropdown-item" style="color: red;font-weight:bold" id="THEM_MESSAGE"></p>
+  
+    <div class="dropdown-divider"></div>
+    <button class="dropdown-item btn btn-primary" id="deleteAllMessage">
+      {{-- <a href="{{route('delete-all-message')}}"> --}}
+        Xóa Toàn Bộ
+      {{-- </a> --}}
+    </button>
+  </div>
+</div>
+</div>
+
 
 <h2>Danh sách hồ sơ của bạn : <span id="username_citizen">{{Session::get('USERNAME_CITIZEN')}}</span></h2>
 
@@ -137,13 +182,23 @@
         <td>{{$hoso->file}}</td>
         <td id="{{'trangthai'.$hoso->id_hoso}}">{{$hoso->status}}</td>
         <td>{{$hoso->name}}</td>
-        <td id="{{'thongbao'.$hoso->id_hoso}}">
+
+
+        {{-- <td id="{{'thongbao'.$hoso->id_hoso}}">
           @if($hoso->note == null)
             Không có thông báo gì
           @else 
             {{$hoso->note}}
           @endif
-        </td>
+        </td> --}}
+
+        @if($hoso->note == null)
+        <td id="{{'thongbao'.$hoso->id_hoso}}">Không có thông báo gì</td>
+        @else 
+        <td id="{{'thongbao'.$hoso->id_hoso}}">{{$hoso->note}}</td>
+        @endif
+
+
         <td>
           <button class="btn btn-warning">
             <a href="{{route('edit-file-hoso',$hoso->id_hoso)}}" style="color: white">
@@ -156,4 +211,25 @@
     
   </tbody>
 </table>
+
+
+
+<script>
+    var username_citizen = document.getElementById('username_citizen').innerHTML;
+
+    if(localStorage.getItem('numberOfMessage'+username_citizen)){
+      document.getElementById('messageThongbao').innerHTML = localStorage.getItem('numberOfMessage'+username_citizen);
+    }else{
+      document.getElementById('messageThongbao').innerHTML = 0;
+    }
+
+
+    $(document).ready(function() {
+      $('#deleteAllMessage').click(function() {
+        var username_citizen = document.getElementById('username_citizen').innerHTML;
+        localStorage.removeItem('numberOfMessage'+username_citizen);
+        $('#messageThongbao').html(0);
+      });
+    });
+</script>
 @endsection
