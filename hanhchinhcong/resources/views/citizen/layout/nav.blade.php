@@ -1,20 +1,3 @@
-<script>
-
-    // var pusher = new Pusher('aa4d6d77e1498fc55765', {
-    //   cluster: 'ap1'
-    // });
-    // var channel = pusher.subscribe('my-channel-manager');
-    // channel.bind('my-event-manager', function(data) {
-    //   var id = String(data.hs[0].id);
-    //   var trangthai = 'trangthai'+id;
-    //   document.getElementById(trangthai).innerHTML = data.hs[0].status;
-    //   document.getElementById('thongbao'+id).innerHTML = data.hs[0].note;
-    // });
-
-
-
-</script>
-
 
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
@@ -36,17 +19,13 @@
               <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown">
                 Thông Báo
                 <span class="badge badge-danger" id='messageThongbao'>
-                  @if(Session::has('numberOfMessage'.Session::get('USERNAME_CITIZEN')))
-                    {{Session::get('numberOfMessage'.Session::get('USERNAME_CITIZEN'))}}
-                  @else
                     0
-                  @endif
                 </span>
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                {{-- @dump(Session::get('contentOfMessage')) --}}
+                
                 <div id='CONTENT_MESSAGE'>
-                  @if(Session::has('contentOfMessage'.Session::get('USERNAME_CITIZEN')) && Session::get('contentOfMessage'.Session::get('USERNAME_CITIZEN')) != null)
+                  {{-- @if(Session::has('contentOfMessage'.Session::get('USERNAME_CITIZEN')) && Session::get('contentOfMessage'.Session::get('USERNAME_CITIZEN')) != null)
                       @foreach(Session::get('contentOfMessage'.Session::get('USERNAME_CITIZEN')) as $key=>$item)
                         <p class="dropdown-item" style="color: red;font-weight:bold" id="{{'ITEM_MESSAGE'.$key}}">{{$item}}</p>
                         <div class="dropdown-divider"></div>
@@ -55,27 +34,30 @@
                   <p class="dropdown-item" style="color: red;font-weight:bold" id="HIDE_TEXT">
                     Không Có Thông Báo Mới
                   </p>
-                  @endif
-
-
-
+                  @endif --}}
                 </div>
 
                 <p class="dropdown-item" style="color: red;font-weight:bold" id="THEM_MESSAGE"></p>
               
                 <div class="dropdown-divider"></div>
-                <button class="dropdown-item btn btn-primary">
-                  <a href="{{route('delete-all-message')}}">
+                <button class="dropdown-item btn btn-primary" id="deleteAllMessage">
+                  {{-- <a href="{{route('delete-all-message')}}"> --}}
                     Xóa Toàn Bộ
-                  </a>
+                  {{-- </a> --}}
                 </button>
               </div>
             </li>
 
-            {{-- <li class="nav-item">
+            {{-- <li class="nav-item dropdown">
               <p class="nav-link">
                 Thông Báo
-                <span class="badge badge-danger" id='messageThongbao'>0</span>
+                <span class="badge badge-danger" id='messageThongbao'>
+                  @if(isset($_COOKIE['numberOfMessage']))
+                    {{$_COOKIE['numberOfMessage']}}
+                  @else
+                    0
+                  @endif
+                </span>
               </p>
             </li> --}}
 
@@ -97,3 +79,23 @@
           </ul>
         </div>
       </nav>
+
+
+<script>
+    var username_citizen = document.getElementById('USERNAME_CITIZEN').innerHTML;
+
+    if(localStorage.getItem('numberOfMessage'+username_citizen)){
+      document.getElementById('messageThongbao').innerHTML = localStorage.getItem('numberOfMessage'+username_citizen);
+    }else{
+      document.getElementById('messageThongbao').innerHTML = 0;
+    }
+
+
+    $(document).ready(function() {
+      $('#deleteAllMessage').click(function() {
+        var username_citizen = document.getElementById('USERNAME_CITIZEN').innerHTML;
+        localStorage.removeItem('numberOfMessage'+username_citizen);
+        $('#messageThongbao').html(0);
+      });
+    });
+</script>

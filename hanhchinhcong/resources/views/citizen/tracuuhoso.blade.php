@@ -1,7 +1,7 @@
 @extends('citizen.layout.app')
 @section('content')
 {{-- @dump($hoso) --}}
-<script>
+<script type="text/javascript">
 
     
     var pusher = new Pusher('aa4d6d77e1498fc55765', {
@@ -10,100 +10,111 @@
 
     var channel = pusher.subscribe('my-channel-manager');
     channel.bind('my-event-manager', function(data) {
+
+      var username_citizen = document.getElementById('username_citizen').innerHTML;
       //alert(JSON.stringify(data));
       //console.log(data.hs[0].id);
       //console.log(data.hs[0].status);
-      
 
-      console.log(data.contentOfMessage);
-      // console.log(sessionStorage.getItem('numberOfMessage'));
-      
-      var id = String(data.hs[0].id);
-      var trangthai = 'trangthai'+id;
-      var length = data.contentOfMessage.length;
+      //localStorage.setItem('numberOfMessage',data.numberOfMessage);
+      console.log(data);
 
+      if(username_citizen == data.hs[0].namecitizen){
 
-      document.getElementById(trangthai).innerHTML = data.hs[0].status;
-      document.getElementById('thongbao'+id).innerHTML = data.hs[0].note;
-
-      document.getElementById('messageThongbao').innerHTML = data.numberOfMessage;
-
-      // if(data.numberOfMessage != 0){
-
-      //   document.getElementById('HIDE_TEXT').innerHTML = "";
-      //   document.getElementById('THEM_MESSAGE').innerHTML = data.contentOfMessage[length-1];
-      // }else{
-      //   document.getElementById('THEM_MESSAGE').innerHTML = "";
-      // }
-
-      //document.getElementById('THEM_MESSAGE').innerHTML = data.contentOfMessage[length-1] ;
-      // document.getElementById('CONTENT_MESSAGE').appendChild('<p>hhhhhhh</p>')
-
-      // if(document.getElementById('CONTENT_MESSAGE').lastChild.innerHTML != data.contentOfMessage[length-1]){
-
-        // if(length > 0){
-
-        // document.getElementById('HIDE_TEXT').innerHTML = "";
+        var id = String(data.hs[0].id);
+        var trangthai = 'trangthai'+id;
+        //var length = data.contentOfMessage.length;
 
 
-        
-        // var node = document.createElement("p");
-        // var textnode = document.createTextNode(data.contentOfMessage[length-1]);
-        // node.appendChild(textnode);  
-        // node.setAttribute("style", "color: red;font-weight:bold");
-        // node.setAttribute("class","dropdown-item");
-        // document.getElementById("CONTENT_MESSAGE").appendChild(node);
+        var oldStatus = document.getElementById(trangthai).innerHTML;
+        var oldNote = document.getElementById('thongbao'+id).innerHTML;
+        var newStatus = data.hs[0].status;
+        var newNote = data.hs[0].note;
 
-        // var node2 = document.createElement("div");
-        // node2.setAttribute("class","dropdown-divider");
-        // document.getElementById("CONTENT_MESSAGE").appendChild(node2);
+        if(localStorage.getItem('numberOfMessage'+username_citizen) == null){
+          localStorage.setItem('numberOfMessage'+username_citizen,0);
+        }
+
+        // if(oldStatus != newStatus || oldNote != newNote){
+        //   // var newNumberOfMessage = localStorage.getItem('numberOfMessage') + '1';
+        //   // localStorage.setItem('numberOfMessage',newNumberOfMessage);
+        //   localStorage.setItem('numberOfMessage',data.numberOfMessage);
+        //   console.log(localStorage.getItem('numberOfMessage'));
         // }
-      // }
 
-      // if(document.getElementById('CONTENT_MESSAGE')){
-        document.getElementById('CONTENT_MESSAGE').innerHTML = "";
-        // if(length == 0){
-        //   document.getElementById('HIDE_TEXT').innerHTML = 'Không Có Thông báo mới';
+        if(oldStatus != newStatus){
+          var count = parseInt(localStorage.getItem('numberOfMessage'+username_citizen));
+          count = count + 1;
+          localStorage.setItem('numberOfMessage'+username_citizen,count);
+
+          var node = document.createElement("p");
+          var textnode = document.createTextNode(data.hs[0].status);
+          node.appendChild(textnode);  
+          node.setAttribute("style", "color: red;font-weight:bold");
+          node.setAttribute("class","dropdown-item");
+          document.getElementById("CONTENT_MESSAGE").appendChild(node);
+        }
+
+        if(oldNote != newNote && newNote != null){
+          var count = parseInt(localStorage.getItem('numberOfMessage'+username_citizen));
+          count = count + 1;
+          localStorage.setItem('numberOfMessage'+username_citizen,count);
+
+          var node = document.createElement("p");
+          var textnode = document.createTextNode(data.hs[0].note);
+          node.appendChild(textnode);  
+          node.setAttribute("style", "color: red;font-weight:bold");
+          node.setAttribute("class","dropdown-item");
+          document.getElementById("CONTENT_MESSAGE").appendChild(node);
+        }
+
+
+
+        document.getElementById(trangthai).innerHTML = data.hs[0].status;
+        document.getElementById('thongbao'+id).innerHTML = data.hs[0].note;
+
+        document.getElementById('messageThongbao').innerHTML = localStorage.getItem('numberOfMessage'+username_citizen);
+
+          
+
+        // document.getElementById('CONTENT_MESSAGE').innerHTML = "";
+          
+
+        // for(var i = 0 ; i < length; ++i){
+
+        //   var node = document.createElement("p");
+        //   var textnode = document.createTextNode(data.contentOfMessage[i]);
+        //   node.appendChild(textnode);  
+        //   node.setAttribute("style", "color: red;font-weight:bold");
+        //   node.setAttribute("class","dropdown-item");
+        //   document.getElementById("CONTENT_MESSAGE").appendChild(node);
+
+        //   var node2 = document.createElement("div");
+        //   node2.setAttribute("class","dropdown-divider");
+        //   document.getElementById("CONTENT_MESSAGE").appendChild(node2);
+
         // }
-      // }
-        // var root = document.createElement('div');
-        // root.setAttribute('id','CONTENT_MESSAGE');
-      
 
 
-      for(var i = 0 ; i < length; ++i){
-
-        var node = document.createElement("p");
-        var textnode = document.createTextNode(data.contentOfMessage[i]);
-        node.appendChild(textnode);  
-        node.setAttribute("style", "color: red;font-weight:bold");
-        node.setAttribute("class","dropdown-item");
-        document.getElementById("CONTENT_MESSAGE").appendChild(node);
-
-        var node2 = document.createElement("div");
-        node2.setAttribute("class","dropdown-divider");
-        document.getElementById("CONTENT_MESSAGE").appendChild(node2);
 
       }
 
-
-    
-
+      
       
 
-  
+
+    
 
 
     });
 
     //Xử lý Thông báo
-
     
-      
+
 </script>
 
 
-<h2>Danh sách hồ sơ của bạn</h2>
+<h2>Danh sách hồ sơ của bạn : <span id="username_citizen">{{Session::get('USERNAME_CITIZEN')}}</span></h2>
 
 
 <table class="table">

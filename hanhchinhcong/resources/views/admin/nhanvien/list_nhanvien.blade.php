@@ -275,7 +275,10 @@ $(document).ready(function() {
             var address = $('#inputAddress').val();
             var id_mathutuc = $('#textareaIDMathutuc').val();
 
-            if(name == '' || phone == '' || email == '' || address == '' || id_mathutuc == ''){
+            var username = $('#inputUsername').val();
+            var password = $('#inputPassword').val();
+
+            if(name == '' || phone == '' || email == '' || address == '' || id_mathutuc == ''||username == ''||password == ''){
                 event.preventDefault();
                 
                 var thongbao = "Bạn không được để trống : "+"<br>"
@@ -294,6 +297,14 @@ $(document).ready(function() {
                 if(id_mathutuc == ""){
                     thongbao = thongbao + "Trường : Id Mã thủ tục"+"<br>";
                 }
+
+                if(username == ""){
+                    thongbao = thongbao + "Trường : username"+"<br>";
+                }
+                if(password == ""){
+                    thongbao = thongbao + "Trường : password"+"<br>";
+                }
+
                 $('.modal-body-thongbao').html(thongbao);
                 $('#modalThongbao').modal('show');
             }
@@ -303,7 +314,7 @@ $(document).ready(function() {
     });
         }
         };
-        xhttp.open("GET", "http://localhost/Project_hanhchinh/hanhchinhcong/public/admin/add-nhanvien", true);
+        xhttp.open("GET", "http://127.0.0.1:8000/admin/add-nhanvien", true);
         xhttp.send();   
     });  
     
@@ -356,7 +367,7 @@ $(document).ready(function() {
          
         }
         };
-        xhttp.open("GET", "http://localhost/Project_hanhchinh/hanhchinhcong/public/admin/edit-nhanvien/"+id, true);
+        xhttp.open("GET", "http://127.0.0.1:8000/admin/edit-nhanvien/"+id, true);
         xhttp.send();   
     });
 

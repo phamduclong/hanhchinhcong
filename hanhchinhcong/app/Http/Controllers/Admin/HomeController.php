@@ -173,42 +173,55 @@ class HomeController extends Controller
             return redirect(route('login'));
         }
     }
+    
+    
 
     public function nhanHoSo($id){
         $hoso = HoSo::find($id);
 
         //Xử lý logic thông báo
 
-        if(Session::has('numberOfMessage' . Session::get('USERNAME_CITIZEN'))){
-            if($hoso->status == 'Đã Trả Kết Quả' || $hoso->status == 'Chưa xử Lý'){
-                $numberOfMessage = Session::get('numberOfMessage' . Session::get('USERNAME_CITIZEN')) + 1;
-                Session::put('numberOfMessage'.Session::get('USERNAME_CITIZEN'), $numberOfMessage);
+                // if(Session::has('numberOfMessage' . $hoso->namecitizen)){
+                //     if($hoso->status == 'Đã Trả Kết Quả' || $hoso->status == 'Chưa xử Lý'){
+                //         $numberOfMessage = Session::get('numberOfMessage' . $hoso->namecitizen) + 1;
+                //         Session::put('numberOfMessage'.$hoso->namecitizen, $numberOfMessage);
 
-                $array = Session::get('contentOfMessage' . Session::get('USERNAME_CITIZEN'));
-                array_push($array, 'Một hồ sơ của bạn đang được xử lý');
-                Session::put('contentOfMessage' . Session::get('USERNAME_CITIZEN'),$array);
-            }
-        }else{
-            if($hoso->status == 'Đã Trả Kết Quả'|| $hoso->status == 'Chưa xử Lý'){
-                Session::put('numberOfMessage' . Session::get('USERNAME_CITIZEN'), 1);
+                //         $array = Session::get('contentOfMessage' . $hoso->namecitizen);
+                //         array_push($array, 'Một hồ sơ của bạn đang được xử lý');
+                //         Session::put('contentOfMessage' . $hoso->namecitizen,$array);
+                //     }
+                // }else{
+                //     if($hoso->status == 'Đã Trả Kết Quả'|| $hoso->status == 'Chưa xử Lý'){
+                //         Session::put('numberOfMessage' . $hoso->namecitizen, 1);
 
-                $array = array('Một hồ sơ của bạn đang được xử lý');
-                Session::put('contentOfMessage' . Session::get('USERNAME_CITIZEN'), $array);
-            }else{
-                Session::put('numberOfMessage' . Session::get('USERNAME_CITIZEN'), 0);
+                //         $array = array('Một hồ sơ của bạn đang được xử lý');
+                //         Session::put('contentOfMessage' . $hoso->namecitizen, $array);
+                //     }else{
+                //         Session::put('numberOfMessage' . $hoso->namecitizen, 0);
 
-                $array = array();
-                Session::put('contentOfMessage' . Session::get('USERNAME_CITIZEN'), $array);
-            }
-        }
+                //         $array = array();
+                //         Session::put('contentOfMessage' . $hoso->namecitizen, $array);
+                //     }
+                // }
         //Kết thúc xử lý
 
         $hoso->status = "Đang xử Lý";
         $hoso->save();
 
         $hs = DB::table('hoso')->where('id','=',$id)->get();
-        event(new EventSendNoteFromManager($hs , Session::get('numberOfMessage' . Session::get('USERNAME_CITIZEN')), Session::get('contentOfMessage' . Session::get('USERNAME_CITIZEN')) ));
 
+        //xu ly event
+        // $citizen = DB::table('citizen')->where('name','=',$hs[0]->namecitizen)->get();
+        //  dd($citizen);
+        // if($citizen != null){
+        //     dd('ok');
+        // }
+
+        // if($hs[0]->namecitizen == Session::get('USERNAME_CITIZEN')){
+        // if ($hs[0]->id_hoso == $citizen[0]->id_hoso) {  // Cứ tài khoản mà có id_hoso trùng với cái id_hoso hồ sơ vừa thay đổi thì event được gọi   
+        // event(new EventSendNoteFromManager($hs , Session::get('numberOfMessage' . $hs[0]->namecitizen), Session::get('contentOfMessage' . $hs[0]->namecitizen) ));
+        // }
+        event(new EventSendNoteFromManager($hs));
         return redirect(route('admin_list_hoso'));
     }
 
@@ -217,28 +230,28 @@ class HomeController extends Controller
         $hoso = HoSo::find($id);
 
         //Xử lý logic thông báo
-        if (Session::has('numberOfMessage' . Session::get('USERNAME_CITIZEN'))) {
-            if ($hoso->status == 'Đang xử Lý'|| $hoso->status == 'Chưa xử Lý') {
-                $numberOfMessage = Session::get('numberOfMessage' . Session::get('USERNAME_CITIZEN')) + 1;
-                Session::put('numberOfMessage' . Session::get('USERNAME_CITIZEN'), $numberOfMessage);
+                // if (Session::has('numberOfMessage' . $hoso->namecitizen)) {
+                //     if ($hoso->status == 'Đang xử Lý'|| $hoso->status == 'Chưa xử Lý') {
+                //         $numberOfMessage = Session::get('numberOfMessage' . $hoso->namecitizen) + 1;
+                //         Session::put('numberOfMessage' . $hoso->namecitizen, $numberOfMessage);
 
-                $array = Session::get('contentOfMessage' . Session::get('USERNAME_CITIZEN'));
-                array_push($array, 'Một hồ sơ của bạn đã được duyệt');
-                Session::put('contentOfMessage' . Session::get('USERNAME_CITIZEN'), $array);
-            }
-        } else {
-            if($hoso->status == 'Đang xử Lý'|| $hoso->status == 'Chưa xử Lý'){
-                Session::put('numberOfMessage' . Session::get('USERNAME_CITIZEN'), 1);
+                //         $array = Session::get('contentOfMessage' . $hoso->namecitizen);
+                //         array_push($array, 'Một hồ sơ của bạn đã được duyệt');
+                //         Session::put('contentOfMessage' . $hoso->namecitizen, $array);
+                //     }
+                // } else {
+                //     if($hoso->status == 'Đang xử Lý'|| $hoso->status == 'Chưa xử Lý'){
+                //         Session::put('numberOfMessage' . $hoso->namecitizen, 1);
 
-                $array = array('Một hồ sơ của bạn đã được duyệt');
-                Session::put('contentOfMessage' . Session::get('USERNAME_CITIZEN'), $array);
-            }else{
-                Session::put('numberOfMessage' . Session::get('USERNAME_CITIZEN'), 0);
+                //         $array = array('Một hồ sơ của bạn đã được duyệt');
+                //         Session::put('contentOfMessage' . $hoso->namecitizen, $array);
+                //     }else{
+                //         Session::put('numberOfMessage' . $hoso->namecitizen, 0);
 
-                $array = array();
-                Session::put('contentOfMessage' . Session::get('USERNAME_CITIZEN'), $array);
-            }
-        }
+                //         $array = array();
+                //         Session::put('contentOfMessage' . $hoso->namecitizen, $array);
+                //     }
+                // }
         //Kết thúc xử lý
 
 
@@ -246,7 +259,19 @@ class HomeController extends Controller
         $hoso->save();
 
         $hs = DB::table('hoso')->where('id', '=', $id)->get();
-        event(new EventSendNoteFromManager($hs , Session::get('numberOfMessage' . Session::get('USERNAME_CITIZEN')) , Session::get('contentOfMessage' . Session::get('USERNAME_CITIZEN')) ));
+
+        //xu ly event
+        //$citizen = DB::table('citizen')->where('name', '=', $hs[0]->namecitizen)->get();
+        //  dd($citizen);
+        // if($citizen != null){
+        //     dd('ok');
+        // }
+
+        // if($hs[0]->namecitizen == Session::get('USERNAME_CITIZEN')){
+        //if ($hs[0]->id_hoso == $citizen[0]->id_hoso) {
+        // event(new EventSendNoteFromManager($hs , Session::get('numberOfMessage' . $hs[0]->namecitizen) , Session::get('contentOfMessage' . $hs[0]->namecitizen) ));
+        //}
+        event(new EventSendNoteFromManager($hs));
         return redirect(route('admin_list_hoso'));
     }
 
@@ -262,35 +287,47 @@ class HomeController extends Controller
 
 
         //Xử lý logic thông báo
-        if (Session::has('numberOfMessage' . Session::get('USERNAME_CITIZEN'))) {
-            if ($hoso->note != $post['note']) {
-                $numberOfMessage = Session::get('numberOfMessage' . Session::get('USERNAME_CITIZEN')) + 1;
-                Session::put('numberOfMessage' . Session::get('USERNAME_CITIZEN'), $numberOfMessage);
+                // if (Session::has('numberOfMessage' . $hoso->namecitizen)) {
+                //     if ($hoso->note != $post['note']) {
+                //         $numberOfMessage = Session::get('numberOfMessage' . $hoso->namecitizen) + 1;
+                //         Session::put('numberOfMessage' . $hoso->namecitizen, $numberOfMessage);
 
-                $array = Session::get('contentOfMessage' . Session::get('USERNAME_CITIZEN'));
-                array_push($array, $post['note']);
-                Session::put('contentOfMessage' . Session::get('USERNAME_CITIZEN'), $array);
-            }
-        } else {
-            if ($hoso->note != $post['note']) {
-                Session::put('numberOfMessage' . Session::get('USERNAME_CITIZEN'), 1);
+                //         $array = Session::get('contentOfMessage' . $hoso->namecitizen);
+                //         array_push($array, $post['note']);
+                //         Session::put('contentOfMessage' . $hoso->namecitizen, $array);
+                //     }
+                // } else {
+                //     if ($hoso->note != $post['note']) {
+                //         Session::put('numberOfMessage' . $hoso->namecitizen, 1);
 
-                $array = array($post['note']);
-                Session::put('contentOfMessage' . Session::get('USERNAME_CITIZEN'), $array);
-            } else {
-                Session::put('numberOfMessage' . Session::get('USERNAME_CITIZEN'), 0);
+                //         $array = array($post['note']);
+                //         Session::put('contentOfMessage' . $hoso->namecitizen, $array);
+                //     } else {
+                //         Session::put('numberOfMessage' . $hoso->namecitizen, 0);
 
-                $array = array();
-                Session::put('contentOfMessage' . Session::get('USERNAME_CITIZEN'),$array);
-            }
-        }
+                //         $array = array();
+                //         Session::put('contentOfMessage' . $hoso->namecitizen,$array);
+                //     }
+                // }
         //Kết thúc xử lý
 
         $hoso->note = $post['note'];
         $hoso->save();
 
         $hs = DB::table('hoso')->where('id', '=', $id)->get();
-        event(new EventSendNoteFromManager($hs , Session::get('numberOfMessage' . Session::get('USERNAME_CITIZEN')) , Session::get('contentOfMessage' . Session::get('USERNAME_CITIZEN')) ));
+
+        //xu ly event
+        //$citizen = DB::table('citizen')->where('name', '=', $hs[0]->namecitizen)->get();
+        //  dd($citizen);
+        // if($citizen != null){
+        //     dd('ok');
+        // }
+
+        // if($hs[0]->namecitizen == Session::get('USERNAME_CITIZEN')){
+        //if ($hs[0]->id_hoso == $citizen[0]->id_hoso) {
+        // event(new EventSendNoteFromManager($hs , Session::get('numberOfMessage' . $hs[0]->namecitizen) , Session::get('contentOfMessage' . $hs[0]->namecitizen) ));
+        //}
+        event(new EventSendNoteFromManager($hs));
         return redirect(route('admin_list_hoso'));
     }
 
@@ -331,6 +368,10 @@ class HomeController extends Controller
 
         $post = $request->all();
         $nhanvien = new Manager();
+
+        $nhanvien->username = $post['username'];
+        $nhanvien->password = $post['password'];
+        
         $nhanvien->name = $post['name'];
         $nhanvien->phone = $post['phone'];
         $nhanvien->email = $post['email'];

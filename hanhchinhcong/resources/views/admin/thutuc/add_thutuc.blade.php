@@ -35,22 +35,24 @@
                         <form role="form" action="{{route('post-add-thutuc')}}" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label class="sr-only" for="contact-name">Name</label>
-                                <input type="text" name="namethutuc" placeholder="Tên Thủ Tục" class="form-control">
+                                <input type="text" name="namethutuc" placeholder="Tên Thủ Tục" class="form-control" id="Name">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="contact-name">Mức Độ</label>
-                                <input type="text" name="mucdo" placeholder="Mức Độ" class="form-control">
+                                <input type="text" name="mucdo" placeholder="Mức Độ" class="form-control" id="Mucdo">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="contact-name">Id Mã Lĩnh Vực</label>
-                                <input type="text" name="id_malinhvuc" placeholder="Id Mã Lĩnh Vực" class="form-control">
+                                <input type="text" name="id_malinhvuc" placeholder="Id Mã Lĩnh Vực" class="form-control" id="Idmalv">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="contact-name">Link Form</label>
-                                <input type="text" name="linkform" placeholder="Link Form" class="form-control">
+                                <input type="text" name="linkform" placeholder="Link Form" class="form-control" id='Linkform'>
                             </div>
 
                             <div id="thongbaoloi"></div>
+
+                            <div id="NOTE" style="color: red"></div>
                             
                             <button type="submit" class="btn btn-warning" id="buttonSaveAdd">Save</button>
                             {{csrf_field()}}
@@ -71,6 +73,16 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+<script>
+    $(document).ready(function(){
+        $('#buttonSaveAdd').click(function(event){
+            if($('#Name').val() == ''||$('#Mucdo').val() == ''||$('#Idmalv').val() == ''||$('#Linkform').val() == ''){
+                event.preventDefault();
+                $('#NOTE').html('Không được để trống');
+            }
+        });
+    });
+</script>
 @endsection
 
 

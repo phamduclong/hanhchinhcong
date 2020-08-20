@@ -35,8 +35,10 @@
                         <form role="form" action="{{route('post-edit-linhvuc',$linhvuc->id)}}" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label class="sr-only" for="contact-name">Name</label>
-                            <input type="text" name="namelinhvuc" placeholder="Tên Lĩnh Vực" class="form-control" value="{{$linhvuc->namelinhvuc}}">
+                            <input id="inputName" type="text" name="namelinhvuc" placeholder="Tên Lĩnh Vực" class="form-control" value="{{$linhvuc->namelinhvuc}}">
                             </div>
+
+                            <div id="NOTE" style="color:red"></div>
                             
                             <button type="submit" class="btn btn-warning" id="buttonSaveAdd">Save</button>
                             {{csrf_field()}}
@@ -57,6 +59,16 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+<script>
+    $(document).ready(function(){
+        $('#buttonSaveAdd').click(function(event){
+            if($('#inputName').val() == ''){
+                event.preventDefault();
+                $('#NOTE').html('Không được để trống');
+            }
+        });
+    });
+</script>
 @endsection
 
 

@@ -15,14 +15,14 @@ class EventSendNoteFromManager implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $hs;
-    public $numberOfMessage;
-    public $contentOfMessage;
+    // public $numberOfMessage;
+    // public $contentOfMessage;
 
-    public function __construct($hs, $numberOfMessage, $contentOfMessage)
+    public function __construct($hs)
     {
         $this->hs = $hs;
-        $this->numberOfMessage = $numberOfMessage;
-        $this->contentOfMessage = $contentOfMessage;
+        // $this->numberOfMessage = $numberOfMessage;
+        // $this->contentOfMessage = $contentOfMessage;
     }
 
     public function broadcastOn()

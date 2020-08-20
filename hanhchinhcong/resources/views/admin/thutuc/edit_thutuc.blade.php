@@ -35,20 +35,22 @@
                         <form role="form" action="{{route('post-edit-thutuc',$thutuc->id)}}" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label class="sr-only" for="contact-name">Name</label>
-                                <input type="text" name="namethutuc" placeholder="Tên Thủ Tục" class="form-control" value="{{$thutuc->namethutuc}}">
+                                <input id="Name" type="text" name="namethutuc" placeholder="Tên Thủ Tục" class="form-control" value="{{$thutuc->namethutuc}}">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="contact-name">Mức Độ</label>
-                                <input type="text" name="mucdo" placeholder="Mức Độ" class="form-control" value="{{$thutuc->mucdo}}">
+                                <input id="Mucdo" type="text" name="mucdo" placeholder="Mức Độ" class="form-control" value="{{$thutuc->mucdo}}">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="contact-name">Id Mã Lĩnh Vực</label>
-                                <input type="text" name="id_malinhvuc" placeholder="Id Mã Lĩnh Vực" class="form-control" value="{{$thutuc->id_malinhvuc}}">
+                                <input id="Idmalv" type="text" name="id_malinhvuc" placeholder="Id Mã Lĩnh Vực" class="form-control" value="{{$thutuc->id_malinhvuc}}">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="contact-name">Link Form</label>
-                                <input type="text" name="linkform" placeholder="Link Form" class="form-control" value="{{$thutuc->linkform}}">
+                                <input id="Linkform" type="text" name="linkform" placeholder="Link Form" class="form-control" value="{{$thutuc->linkform}}">
                             </div>
+
+                            <div id="NOTE" style="color: red"></div>
                             
                             <button type="submit" class="btn btn-warning" id="buttonSaveAdd">Save</button>
                             {{csrf_field()}}
@@ -69,6 +71,16 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+<script>
+    $(document).ready(function(){
+        $('#buttonSaveAdd').click(function(event){
+            if($('#Name').val() == ''||$('#Mucdo').val() == ''||$('#Idmalv').val() == ''||$('#Linkform').val() == ''){
+                event.preventDefault();
+                $('#NOTE').html('Không được để trống');
+            }
+        });
+    });
+</script>
 @endsection
 
 

@@ -19,6 +19,14 @@
         <label class="sr-only" for="contact-message">Thủ tục quản lý</label>
         <textarea name="id_mathutuc" placeholder="Thủ tục quản lý (điền số)..." class="contact-message form-control" id="textareaIDMathutuc"></textarea>
     </div>
+    <div class="form-group">
+        <label class="sr-only" for="contact-name">Username</label>
+        <input type="text" name="username" placeholder="Username..." class="form-control" id="inputUsername">
+    </div>
+    <div class="form-group">
+        <label class="sr-only" for="contact-name">Password</label>
+        <input type="text" name="password" placeholder="Password..." class="form-control" id="inputPassword">
+    </div>
     <button type="submit" class="btn btn-warning" id="buttonSaveAdd">Save</button>
     {{csrf_field()}}
 </form>
