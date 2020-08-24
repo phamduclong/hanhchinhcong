@@ -38,6 +38,8 @@
                 <li><a href="{{route('admin_list_linhvuc')}}"><i class="fa fa-th"></i> <span>Danh sách lĩnh vực</span></a></li>
                 <li><a href="{{route('admin_list_thutuc')}}"><i class="fa fa-th"></i> <span>Danh sách thủ tục</span></a></li>
                 <li><a href="{{route('admin_list_hoso')}}"><i class="fa fa-th"></i> <span>Danh sách hồ sơ</span></a></li>
+
+                <li><a href="{{route('report_thutuc')}}"><i class="fa fa-th"></i> <span>Báo cáo thủ tục</span></a></li>
             </ul>
             <div class="item -online">
               <span class="icon fa fa-user" style="color: #5cb85c;"></span>

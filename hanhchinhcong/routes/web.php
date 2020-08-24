@@ -90,4 +90,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::get('xu-ly-thong-bao-tu-cong-dan',['as'=> 'xu-ly-thong-bao-tu-cong-dan','uses'=>'HomeController@xuLyThongBao']);
     Route::get('delete-all-message',['as'=>'delete-all-message','uses'=>'HomeController@deleteAllMessage']);
 
+
+    //báo cáo thủ tục
+    Route::get('report_thutuc',['as'=> 'report_thutuc','uses'=>'HomeController@reportThutuc']);
+    Route::get('export-report',['as'=> 'export-report','uses'=>'HomeController@exportReport']);
+
 });

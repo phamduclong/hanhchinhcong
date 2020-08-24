@@ -151,8 +151,19 @@ class HomeController extends Controller
     }
 
     public function deleteThutuc($id){
-        $thutuc = ThuTuc::find($id);
-        $thutuc->delete();
+        //$thutuc = ThuTuc::find($id);
+
+        //xử lý xóa thủ tục
+        $thutuc = DB::table('thutuc')->leftJoin('hoso','thutuc.id_mathutuc','=','hoso.id_mathutuc')
+                                     ->where('thutuc.id','=',$id)->get();
+        if($thutuc[0]->id == null){
+            $TT = ThuTuc::find($id);
+            $TT->delete();
+            //dd('đc xóa');
+        }                             
+                                     
+        //end
+        //$thutuc->delete();
         return redirect(route('admin_list_thutuc')); 
     }
 
@@ -441,4 +452,135 @@ class HomeController extends Controller
     public function xuLyThongBao(){
         return redirect(route('admin_list_hoso'));
     }
+
+    //báo cáo thủ tục
+    public function reportThutuc(){
+        
+
+        $thutuc = DB::table('thutuc')
+        ->join('hoso','thutuc.id_mathutuc','=','hoso.id_mathutuc')
+        ->selectRaw('thutuc.id as STT,thutuc.namethutuc as tenthutuc, count(*) as sohosotiepnhan')
+        ->groupBy('thutuc.id_mathutuc')
+        ->get();
+
+        $thutuc1 = DB::table('thutuc')
+        ->join('hoso', 'thutuc.id_mathutuc', '=', 'hoso.id_mathutuc')
+        ->selectRaw('thutuc.id as STT,thutuc.namethutuc as tenthutuc, count(*) as sohosodagiaiquyet')
+        ->where('hoso.status','=','Đã Trả Kết Quả')
+        ->groupBy('thutuc.id_mathutuc')
+        ->get();
+
+        $thutuc2 = DB::table('thutuc')
+        ->join('hoso', 'thutuc.id_mathutuc', '=', 'hoso.id_mathutuc')
+        ->selectRaw('thutuc.id as STT,thutuc.namethutuc as tenthutuc, count(*) as sohosodanggiaiquyet')
+        ->where('hoso.status', '=', 'Đang xử Lý')
+        ->groupBy('thutuc.id_mathutuc')
+        ->get();
+
+        //dd($thutuc2);
+        return view('admin.thutuc.report_thutuc',compact('thutuc','thutuc1','thutuc2'));
+    }
+
+    //export exel
+
+    public function exportReport(){
+        $thutuc = DB::table('thutuc')
+        ->join('hoso', 'thutuc.id_mathutuc', '=', 'hoso.id_mathutuc')
+        ->selectRaw('thutuc.id as STT,thutuc.namethutuc as tenthutuc, count(*) as sohosotiepnhan')
+        ->groupBy('thutuc.id_mathutuc')
+        ->get();
+
+        $thutuc1 = DB::table('thutuc')
+        ->join('hoso', 'thutuc.id_mathutuc', '=', 'hoso.id_mathutuc')
+        ->selectRaw('thutuc.id as STT,thutuc.namethutuc as tenthutuc, count(*) as sohosodagiaiquyet')
+        ->where('hoso.status', '=', 'Đã Trả Kết Quả')
+        ->groupBy('thutuc.id_mathutuc')
+        ->get();
+
+        $thutuc2 = DB::table('thutuc')
+        ->join('hoso', 'thutuc.id_mathutuc', '=', 'hoso.id_mathutuc')
+        ->selectRaw('thutuc.id as STT,thutuc.namethutuc as tenthutuc, count(*) as sohosodanggiaiquyet')
+        ->where('hoso.status', '=', 'Đang xử Lý')
+        ->groupBy('thutuc.id_mathutuc')
+        ->get();
+
+        $html = '<h2>Hồ Sơ Tiếp Nhận</h2>
+                        
+                        <table id="data_table" class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th class="bg-primary">STT</th>
+                                <th class="bg-primary" width="300px">Tên thủ tục</th>
+                                <th class="bg-primary">Số hồ sơ tiếp nhận</th>
+                            </tr>
+                            </thead>
+                            <tbody id="show_data">';
+        foreach($thutuc as $tt){
+            $html .= '<tr>
+                                    <td>'.$tt->STT.'</td>
+                                    <td>'.$tt->tenthutuc.'</td>
+                                    <td>'.$tt->sohosotiepnhan.'</td>
+                                    
+                                </tr>';
+        } 
+        $html .= '</tbody>
+                        </table>
+
+                        <br>
+
+                        <h2>Hồ Sơ Đã Giải Quyết</h2>
+
+                        <table id="data_table" class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th class="bg-primary">STT</th>
+                                <th class="bg-primary" width="300px">Tên thủ tục</th>
+                                <th class="bg-primary">Số hồ sơ đã giải quyết</th>
+                            </tr>
+                            </thead>
+                            <tbody id="show_data">';
+
+        foreach ($thutuc1 as $tt1) {
+            $html .= '<tr>
+                                    <td>' . $tt1->STT . '</td>
+                                    <td>' . $tt1->tenthutuc . '</td>
+                                    <td>' . $tt1->sohosodagiaiquyet . '</td>
+                                    
+                                </tr>';
+        } 
+        $html .= '</tbody>
+                        </table>
+
+                        <br>
+
+                        <h2>Hồ Sơ Đang Giải Quyết</h2>
+                        <table id="data_table" class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th class="bg-primary">STT</th>
+                                <th class="bg-primary" width="300px">Tên thủ tục</th>
+                                <th class="bg-primary">Số hồ sơ đang giải quyết</th>
+                            </tr>
+                            </thead>
+                            <tbody id="show_data">';
+        foreach ($thutuc2 as $tt2) {
+            $html .= '<tr>
+                                    <td>' . $tt2->STT . '</td>
+                                    <td>' . $tt2->tenthutuc . '</td>
+                                    <td>' . $tt2->sohosodanggiaiquyet . '</td>
+                                    
+                                </tr>';
+        }     
+        $html .= '</tbody>
+                        </table>' ;
+
+        header('Content-Type:application/xls');
+        header('Content-Disposition:attachment;filename=report.xls');
+        echo $html;                
+    }
+
+
+
+
+
 }
